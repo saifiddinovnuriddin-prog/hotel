@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HotelPro - Mehmonxona biznesi uchun konsalting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+      .modal {
+          display: none;
+          position: fixed;
+          z-index: 50;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0,0,0,0.8);
+      }
+      .modal-content {
+          margin: 5% auto;
+          display: block;
+          max-width: 90%;
+          max-height: 90%;
+          border-radius: 8px;
+          position: relative;
+      }
+      .close {
+          color: #fff;
+          position: absolute;
+          top: 15px;
+          right: 35px;
+          font-size: 40px;
+          font-weight: bold;
+          cursor: pointer;
+      }
+      .close:hover { color: #1E3A8A; }
+      .next-btn {
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          background-color: rgba(30, 58, 138, 0.7);
+          color: #fff;
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+          font-size: 20px;
+          border-radius: 50%;
+      }
+      .next-btn:hover { background-color: #1E3A8A; }
+      
+      /* Slider styles */
+      .slide {
+          transition: transform 500ms cubic-bezier(.22,.9,.38,1), opacity 300ms;
+          position: relative;
+      }
+      .slider-image {
+          height: 80vh; /* Kichraytirildi */
+          object-fit: contain; /* Proporsional cho'zilish oldi */
+          width: 100%;
+      }
+      .slide-text {
+          position: absolute;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: white;
+          font-size: 1.2rem; /* Kichikroq font hajmi */
+          font-weight: bold;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+          text-align: center;
+          padding: 1rem;
+          background-color: rgba(0, 0, 0, 0.7); /* Yarim shaffof qora fon */
+          border-radius: 0.5rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soyali effekt */
+          max-width: 80%; /* Matn blokining kengligi cheklangan */
+      }
+      @keyframes slideIn {
+          from {
+              bottom: -100px;
+              opacity: 0;
+          }
+          to {
+              bottom: 20px;
+              opacity: 1;
+          }
+      }
+      @keyframes shake {
+          0% { transform: translateX(-50%) translateY(0); }
+          25% { transform: translateX(-50%) translateY(5px); }
+          50% { transform: translateX(-50%) translateY(-5px); }
+          75% { transform: translateX(-50%) translateY(5px); }
+          100% { transform: translateX(-50%) translateY(0); }
+      }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white py-6 px-6 md:px-12 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img class="w-16 h-16 font-bold" src="./hospitality pro profil_pixian_ai.png" alt="">
+                <div class="">
+                    <h1 class="text-2xl font-bold">Hotelity</h1>
+                    <h1 class="text-2xl font-bold text-[#1B2C8C]">Pro</h1>
+                </div>
+            </div>
+            <!-- Navigatsiya -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#rejalashtirish" class="hover:text-blue-300 transition font-bold">Главная</a>
+                <a href="#bizhaqimizda" class="hover:text-blue-300 transition font-bold">О нас</a>
+                <a href="#xizmatlar" class="hover:text-blue-300 transition font-bold">Услуги</a>
+                <a href="#loyiha" class="hover:text-blue-300 transition font-bold">Проекты</a>
+                <a href="#yangiliklar" class="hover:text-blue-300 transition font-bold">Новости</a>
+                <a href="#maqolalar" class="hover:text-blue-300 transition font-bold">Статьи</a>
+                <a href="#aloqa" class="hover:text-blue-300 transition font-bold">Контакты</a>
+                <a href="#loyalti" class="hover:text-blue-300 transition font-bold">Лояльность</a>
+            </nav>
+            <!-- Mobil toggle -->
+            <div class="md:hidden">
+                <button class="focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="relative w-full">
+            <!-- Slider viewport -->
+            <div id="slider" class="overflow-hidden relative rounded-lg shadow-lg">
+                <div id="slides" class="flex w-full h-full slide-container">
+                    <!-- Slide 1 -->
+                    <div class="w-screen flex-shrink-0 slide" data-index="0">
+                        <img src="./hospitality pro profil_pixian_ai.png" alt="Rasm 1" class="w-screen slider-image">
+                        <div class="slide-text">
+                            Лидер в консалтинге гостиничного бизнеса.<br>
+                            Мы бережно заботимся о вашем отеле, обеспечивая устойчивый рост и эффективность.
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="w-screen flex-shrink-0 slide" data-index="1">
+                        <img src="https://via.placeholder.com/1200x800?text=Rasm+2" alt="Rasm 2" class="w-screen slider-image">
+                        <div class="slide-text">
+                            Мы помогаем эффективно управлять вашим бизнесом.<br>
+                            Наши решения обеспечивают полный контроль и уверенность в результатах.
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="w-screen flex-shrink-0 slide" data-index="2">
+                        <img src="https://via.placeholder.com/1200x800?text=Rasm+3" alt="Rasm 3" class="w-screen slider-image">
+                        <div class="slide-text">
+                            Мы создаём и развиваем высокоэффективные команды.<br>
+                            Наш подход гарантирует достижение результатов и повышение продуктивности.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Left button -->
+                <button id="prevBtn" aria-label="Oldingi" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white p-3 rounded-full shadow-md">
+                    <span class="text-xl font-bold select-none">&lt;</span>
+                </button>
+
+                <!-- Right button -->
+                <button id="nextBtn" aria-label="Keyingi" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white p-3 rounded-full shadow-md">
+                    <span class="text-xl font-bold select-none">&gt;</span>
+                </button>
+
+                <!-- Dots -->
+                <div id="dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                    <button class="w-3 h-3 rounded-full bg-white/70 ring-0" data-dot="0"></button>
+                    <button class="w-3 h-3 rounded-full bg-white/50" data-dot="1"></button>
+                    <button class="w-3 h-3 rounded-full bg-white/50" data-dot="2"></button>
+                </div>
+            </div>
+
+            <!-- Rasmni ko'rish tugmasi -->
+            <div class="text-center mt-8">
+                <button id="viewImageBtn" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-6 rounded-lg transition">Rasmni ko'rish</button>
+            </div>
+        </div>
+
+        <!-- Полезные статьи секцияси -->
+        <section id="maqolalar" class="py-12 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Полезные статьи</h1>
+                <h1 class="text-3xl font-bold text-center text-gray-800 mb-8 mt-[-33px] text-gray-800">__ __</h1>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Maqola 1 -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-105">
+                        <img src="./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg" alt="">
+                        <h3 class="text-xl font-semibold text-white mb-2">Husma Hotel & Spa</h3>
+                        <p class="text-white mb-4">Комфорт и удобства для бизнес-путешественников.</p>
+                    </div>
+                    <!-- Maqola 2 -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-105">
+                        <img src="./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg" alt="">
+                        <h3 class="text-xl font-semibold text-white mb-2">Узбекистан и гостиничный бизнес</h3>
+                        <p class="text-white mb-4">Узбекистан – страна с богатым культурным наследием.</p>
+                    </div>
+                    <!-- Maqola 3 -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-105">
+                        <img src="./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg" alt="">
+                        <h3 class="text-xl font-semibold text-white mb-2">Почему стоит обращаться к консалтинговой компании?</h3>
+                        <p class="text-white mb-4">Каждый успешный бизнесмен это знает.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+  <section class="max-w-8xl h-[590px] mx-auto px-4 bg-gray-800">
+    <h2 class="text-4xl font-bold mb-10 text-center text-white">Наши Услуги</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- 1. Управление -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
+        <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Управление</h3><br>
+        <p class="text-gray-700 short">
+          Компания Hotel Pro рассматривает предложения по управлению отелями, управлению гостиничными комплексами...
+        </p>
+        <p class="text-gray-700 hidden full">
+          Компания Hotel Pro рассматривает предложения по управлению отелями, управлению гостиничными комплексами, 
+          а также организации управления персоналом, оптимизации процессов и повышению качества обслуживания гостей.
+        </p>
+      </div>
+
+      <!-- 2. Запуск и Про-Опеннинг -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
+        <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Запуск и Про-Опеннинг Отелей</h3><br>
+        <p class="text-gray-700 short">
+          Мы готовы подключиться к процессу как на этапе проектирования, так и на этапе запуска готовой гостиницы.
+        </p>
+        <p class="text-gray-700 hidden full">
+          Мы готовы подключиться к процессу как на этапе проектирования, так и на этапе запуска готовой гостиницы. 
+          Наша команда сопровождает открытие отеля, помогает с подбором персонала, разработкой процедур и стандартов.
+        </p>
+      </div>
+
+      <!-- 3. Исследование Рынка -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
+        <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Исследование Гостиничного Рынка</h3><br>
+        <p class="text-gray-700 short">
+          Компания Hotel Pro предлагает услуги по анализу рынка гостиничной недвижимости и обзору показателей...
+        </p>
+        <p class="text-gray-700 hidden full">
+          Компания Hotel Pro предлагает услуги по анализу рынка гостиничной недвижимости, обзору ключевых показателей, 
+          конкурентной среды, тенденций и стратегических возможностей для развития бизнеса.
+        </p>
+      </div>
+
+      <!-- 4. Аудит Отеля -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
+        <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Аудит Отеля</h3><br>
+        <p class="text-gray-700 short">
+          Наша компания предлагает профессиональный аудит гостиниц и отдельных служб гостиничного комплекса.
+        </p>
+        <p class="text-gray-700 hidden full">
+          Наша компания проводит полную проверку процессов, финансовых показателей, обслуживания гостей и качества услуг, 
+          предоставляя рекомендации по улучшению работы и увеличению прибыли.
+        </p>
+      </div>
+
+      <!-- 5. Продажи и Маркетинг -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
+        <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Продажи и Маркетинг</h3><br>
+        <p class="text-gray-700 short">
+          Компания Hotel Pro оказывает услуги по увеличению продаж гостиничных услуг и разработке стратегии маркетинга.
+        </p>
+        <p class="text-gray-700 hidden full">
+          Мы разрабатываем маркетинговые кампании, стратегии продвижения, SEO и SMM решения, а также оптимизируем продажи 
+          для повышения узнаваемости бренда и загрузки отеля.
+        </p>
+      </div>
+
+      <!-- 6. Проектирование и Дизайн -->
+      <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
+        <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Проектирование и Дизайн</h3><br>
+        <p class="text-gray-700 short">
+          В спектр работ по дизайну отеля входят дизайнерские, архитектурные и другие разработки...
+        </p>
+        <p class="text-gray-700 hidden full">
+          Мы создаём концепции интерьера и экстерьера, подбираем материалы и решения, которые отражают бренд отеля и 
+          делают пребывание гостей комфортным и запоминающимся.
+        </p>
+      </div>
+    </div>
+  </section>
+
+    <section class="max-w-6xl mx-auto py-16 px-4">
+    <h2 class="text-3xl font-bold mb-6 text-center">Почему Нужно Выбрать Нас</h2>
+
+    <!-- ✅ Tugmalar -->
+  <section class="max-w-6xl mx-auto py-16 px-4 grid md:grid-cols-2 gap-8">
+    <!-- ✅ О НАС qismi -->
+    <div>
+      <h2 class="text-3xl font-bold mb-4">О нас</h2>
+      <p class="text-gray-700 mb-4">
+        Консультационные услуги HotelPro для гостиничного бизнеса.
+      </p>
+      <p class="text-gray-700 mb-4">
+        Основным направлением деятельности HotelPro является консультирование по гостиничному бизнесу.
+      </p>
+      <div class="mt-6">
+        <h3 class="font-semibold">Haydarov Sirojiddin</h3>
+        <p class="text-sm text-gray-600">CEO & Founder</p>
+      </div>
+    </div>
+
+    <!-- ✅ Tugmalar + kontent -->
+    <div>
+      <h2 class="text-3xl font-bold mb-6">Почему Нужно Выбрать Нас</h2>
+
+      <!-- Tugmalar -->
+      <div class="flex border rounded-lg overflow-hidden mb-6">
+        <button class="tab-btn flex-1 py-3 font-semibold bg-gray-800 text-white hover:scale-105" data-tab="1">Опыт</button>
+        <button class="tab-btn flex-1 py-3 font-semibold bg-white text-gray-800 hover:scale-105" data-tab="2">Сильная команда</button>
+        <button class="tab-btn flex-1 py-3 font-semibold bg-white text-gray-800 hover:scale-105" data-tab="3">Путь к брендам</button>
+      </div>
+
+      <!-- Kontent blok -->
+      <div id="tab-content" class="text-gray-700 text-lg leading-relaxed">
+        Команда Hotel Pro — первая консалтинговая компания, которая обслужила более 60 отелей в процессах строительства, управления, звезд и франчайзинга.
+      </div>
+    </div>
+</section>
+</section>
+    <section class="w-full h-[300px] bg-gray-800 flex justify-center items-center gap-6">
+        <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
+            <h1 class="text-5xl font-bold">25+</h1>
+            <h2 class="text-2xl">Построеных отелей</h2>
+        </div>
+        <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
+            <h1 class="text-5xl font-bold">40++</h1>
+            <h2 class="text-2xl">Лет командного опыта</h2>
+        </div>
+        <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
+            <h1 class="text-5xl font-bold">260+</h1>
+            <h2 class="text-2xl">Cотрудников под управление</h2>
+        </div>
+        <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
+            <h1 class="text-5xl font-bold">25+</h1>
+            <h2 class="text-2xl">Построеных отелей</h2>
+        </div>
+        <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
+            <h1 class="text-5xl font-bold">25+</h1>
+            <h2 class="text-2xl">Построеных отелей</h2>
+        </div>
+    </section>
+</main>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="modal-content" src="https://via.placeholder.com/1200x800?text=Birinchi+Rasm">
+        <button class="next-btn" onclick="nextImage()">></button>
+    </div>
+
+    <script>
+   const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContent = document.getElementById("tab-content");
+
+    const contents = {
+      1: "Команда Hotel Pro — первая консалтинговая компания, которая обслужила более 60 отелей в процессах строительства, управления, звезд и франчайзинга.",
+      2: "Наша сильная команда состоит из профессионалов с многолетним опытом, которые помогут вашему бизнесу вырасти и развиваться.",
+      3: "Мы поможем вашему отелю стать частью международных брендов и укрепить его позиции на рынке."
+    };
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        // 🔁 Barcha tugmalarni default holatga qaytar
+        tabButtons.forEach(b => {
+          b.classList.remove("bg-gray-800", "text-white");
+          b.classList.add("bg-white", "text-gray-800");
+        });
+
+        // ✅ Aktiv tugmaga stil ber
+        btn.classList.add("bg-gray-800", "text-white");
+        btn.classList.remove("bg-white", "text-gray-800");
+
+        // 🧠 Kontentni almashtir
+        const tabNumber = btn.getAttribute("data-tab");
+        tabContent.textContent = contents[tabNumber];
+      });
+    });
+        // Slider logic
+        (function() {
+            const slidesWrap = document.getElementById('slides');
+            const slides = Array.from(slidesWrap.querySelectorAll('.slide'));
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dots = Array.from(document.querySelectorAll('#dots button'));
+            const total = slides.length;
+            let index = 0;
+            let isAnimating = false;
+
+            // Set width of container (flex) so each slide takes 100%
+            function updatePosition(animate = true) {
+                const x = -index * 100;
+                if (!animate) slidesWrap.style.transition = 'none';
+                else slidesWrap.style.transition = 'transform 500ms cubic-bezier(.22,.9,.38,1)';
+                slidesWrap.style.transform = `translateX(${x}%)`;
+
+                // update dots style
+                dots.forEach((d, i) => {
+                    d.classList.toggle('bg-white/90', i === index);
+                    d.classList.toggle('bg-white/50', i !== index);
+                });
+
+                if (!animate) {
+                    requestAnimationFrame(() => {
+                        slidesWrap.style.transition = '';
+                    });
+                }
+            }
+
+            function goTo(nextIndex) {
+                if (isAnimating) return;
+                isAnimating = true;
+                index = (nextIndex + total) % total;
+                updatePosition(true);
+                setTimeout(() => { isAnimating = false; }, 520);
+            }
+
+            prevBtn.addEventListener('click', () => goTo(index - 1));
+            nextBtn.addEventListener('click', () => goTo(index + 1));
+
+            dots.forEach(d => {
+                d.addEventListener('click', () => {
+                    const dotIndex = Number(d.dataset.dot);
+                    goTo(dotIndex);
+                });
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') goTo(index - 1);
+                if (e.key === 'ArrowRight') goTo(index + 1);
+            });
+
+            let startX = null;
+            slidesWrap.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+            }, { passive: true });
+            slidesWrap.addEventListener('touchend', e => {
+                if (startX === null) return;
+                const endX = e.changedTouches[0].clientX;
+                const diff = endX - startX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) goTo(index - 1);
+                    else goTo(index + 1);
+                }
+                startX = null;
+            });
+
+            updatePosition(false);
+        })();
+
+        // Modal logic
+        let currentImageIndex = 0;
+        const images = [
+            "./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg",
+            "https://via.placeholder.com/1200x800?text=Ikkinchi+Rasm",
+            "https://via.placeholder.com/1200x800?text=Uchinchi+Rasm"
+        ];
+
+        function openModal() {
+            document.getElementById('myModal').style.display = 'block';
+            document.getElementById('modalImage').src = images[currentImageIndex];
+        }
+
+        document.getElementById('viewImageBtn').onclick = openModal;
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            document.getElementById('modalImage').src = images[currentImageIndex];
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('myModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Vaqtni yangilash funksiyasi
+        function updateTime() {
+            const now = new Date();
+            const options = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Asia/Tashkent',
+                timeZoneName: 'short'
+            };
+            const timeString = now.toLocaleTimeString('en-US', options).replace('AM', 'AM +05').replace('PM', 'PM +05');
+            const day = now.toLocaleDateString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+            document.getElementById('current-time').textContent = `${timeString} on ${day}`;
+        }
+        setInterval(updateTime, 1000); // Har soniya yangilanadi
+        updateTime(); // Dastlabki yuklashda vaqtni ko'rsatish
+
+        document.querySelectorAll(".read-more").forEach(button => {
+      button.addEventListener("click", () => {
+        const card = button.parentElement;
+        const shortText = card.querySelector(".short");
+        const fullText = card.querySelector(".full");
+        
+        shortText.classList.toggle("hidden");
+        fullText.classList.toggle("hidden");
+        
+        button.textContent = fullText.classList.contains("hidden")
+          ? "Читать Далее ›"
+          : "Скрыть ▲";
+      });
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer id="aloqa" class="bg-gray-800 text-white py-6 px-6 md:px-12 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 HotelPro. Barcha huquqlar himoyalangan. <a href="tel:+998781138330" class="hover:text-blue-300">+998 78 113 83 30</a> | <span id="current-time"></span></p>
+        </div>
+    </footer>
+</body>
+</html>
