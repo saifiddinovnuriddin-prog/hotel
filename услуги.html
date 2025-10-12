@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги - HospitalityPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        html, body { margin: 0; padding: 0; overflow-x: hidden; scroll-behavior: smooth; }
+        .header-bg { background-color: #1f2937; }
+        .section-bg { background-color: #374151; color: white; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .card-hover { 
+            position: relative; 
+            overflow: hidden; 
+            transition: transform 0.4s ease, box-shadow 0.4s ease; 
+        }
+        .card-hover:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3); 
+        }
+        .hover-panel {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            text-align: center;
+            padding: 1rem;
+        }
+        .card-hover:hover .hover-panel { opacity: 1; transform: scale(1); }
+        .service-card { transition: max-height 0.5s ease; }
+        .service-card.expanded { max-height: 600px; }
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #1e3a8a);
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+        .nav-link { transition: color 0.3s ease, transform 0.3s ease; }
+        .nav-link:hover { color: #60a5fa; transform: translateY(-2px); }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+        .cta-button { 
+            animation: pulse 2s infinite;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .cta-button:hover { 
+            background-color: #2563eb;
+            transform: scale(1.1);
+        }
+            .hero-bg { 
+      background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 10s infinite;
+    }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="font-sans text-gray-900">
+
+<!-- Header -->
+<header class="header-bg text-white py-6 px-6 md:px-12 shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <div class="flex items-center gap-4">
+            <img class="w-16 h-16 rounded-full transition-transform duration-300 hover:rotate-12" src="./hospitality pro profil_pixian_ai.png" alt="Logo">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight transition-transform duration-300 hover:scale-105">Hospitality <br><span class="text-blue-400">Pro</span></h1>
+            </div>
+        </div>
+        <!-- Navigatsiya -->
+        <div class="flex flex-col items-end gap-2">
+            <div class="flex space-x-4">
+                <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="./index.html" class="nav-link font-bold text-lg">Главная</a>
+                <a href="./онас.html" class="nav-link font-bold text-lg">О нас</a>
+                <a href="./услуги.html" class="nav-link font-bold text-lg text-blue-400">Услуги</a>
+                <a href="#loyiha" class="nav-link font-bold text-lg">Проекты</a>
+                <a href="#yangiliklar" class="nav-link font-bold text-lg">Новости</a>
+                <a href="#maqolalar" class="nav-link font-bold text-lg">Статьи</a>
+                <a href="./kontakt.html" class="nav-link font-bold text-lg">Контакты</a>
+                <a href="./client.html" class="nav-link font-bold text-lg">не Тренер</a>
+                <a href="./coach.html" class="nav-link font-bold text-lg">Тренер</a>
+            </nav>
+        </div>
+        <!-- Mobil toggle -->
+        <div class="md:hidden">
+            <button class="focus:outline-none text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>
+<div class="bg-gray-100">
+    <!-- Floating CTA Button -->
+    <a href="tel:+998911638338" class="fixed right-6 top-1/2 z-50 w-14 h-14 mt-[220px] flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg cta-button" aria-label="Telefon" title="Telefon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h1.5a1 1 0 011 .75l.6 2.4a1 1 0 01-.25.95L6.1 8.9a12.04 12.04 0 005 5l1.8-1.25a1 1 0 01.95-.25l2.4.6A1 1 0 0119 15.5V17a2 2 0 01-2 2A16 16 0 013 5z"/>
+        </svg>
+    </a>
+    
+    <!-- Scroll to Top Button -->
+    <button id="toTop" class="fixed right-6 bottom-6 z-50 w-14 h-14 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg opacity-0 pointer-events-none transform translate-y-6 transition-all duration-300 hover:scale-110 focus:outline-none" aria-label="Tepaga" title="Tepaga">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+        </svg>
+    </button>
+    
+    <!-- Services Section -->
+    <section id="xizmatlar" class="section-bg py-20">
+        <div class="container mx-auto px-6">
+            <div class="hero-bg text-white py-24 rounded-xl relative overflow-hidden mb-16 text-center fade-in">
+                <h2 class="text-5xl font-extrabold text-white mb-4">Наши услуги</h2>
+                <p class="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed">Мы предоставляем полный спектр консультационных услуг для гостиничного бизнеса, помогая вам достичь новых высот в управлении, маркетинге и дизайне.</p>
+                <div class="progress-bar mt-6 mx-auto max-w-md"></div>
+            </div>
+    
+            <!-- Xizmatlar kartalari -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Xizmat 1 -->
+                <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+                    <div class="hover-panel">
+                        <p class="text-lg font-semibold">Узнайте больше о нашем аудите!</p>
+                    </div>
+                    <i class="fa-solid fa-magnifying-glass-chart text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Консалтинг и аудит гостиниц</h3>
+                    <p class="short text-gray-300 mb-4">Анализ работы вашего отеля и рекомендации по улучшению эффективности.</p>
+                    <p class="full text-gray-300 mb-4 hidden">Мы проводим глубокий анализ операционной деятельности вашего отеля, выявляем слабые места и предлагаем конкретные решения для повышения эффективности, оптимизации затрат и улучшения качества обслуживания.</p>
+                    <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+                </div>
+    
+                <!-- Xizmat 2 -->
+                <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+                    <div class="hover-panel">
+                        <p class="text-lg font-semibold">Создадим стратегию успеха!</p>
+                    </div>
+                    <i class="fa-solid fa-chart-line text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Разработка бизнес-стратегий</h3>
+                    <p class="short text-gray-300 mb-4">Создание индивидуальных стратегий для роста и процветания вашего бизнеса.</p>
+                    <p class="full text-gray-300 mb-4 hidden">Мы создаем персонализированные бизнес-стратегии, включающие анализ рынка, определение целевой аудитории и разработку плана для увеличения доходов и конкурентоспособности вашего отеля.</p>
+                    <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+                </div>
+    
+                <!-- Xizmat 3 -->
+                <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+                    <div class="hover-panel">
+                        <p class="text-lg font-semibold">Повышение уровня сервиса!</p>
+                    </div>
+                    <i class="fa-solid fa-users-gear text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Управление персоналом и обучение</h3>
+                    <p class="short text-gray-300 mb-4">Обучение команды и оптимизация работы персонала для улучшения сервиса.</p>
+                    <p class="full text-gray-300 mb-4 hidden">Наши программы обучения помогут вашему персоналу освоить международные стандарты гостеприимства, улучшить навыки общения с клиентами и оптимизировать внутренние процессы.</p>
+                    <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+                </div>
+    
+                <!-- Xizmat 4 -->
+                <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+                    <div class="hover-panel">
+                        <p class="text-lg font-semibold">Уникальный дизайн вашего отеля!</p>
+                    </div>
+                    <i class="fa-solid fa-pencil-ruler text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Дизайн и оформление интерьера</h3>
+                    <p class="short text-gray-300 mb-4">Создание привлекательного и функционального интерьера для вашего отеля.</p>
+                    <p class="full text-gray-300 mb-4 hidden">Мы сотрудничаем с ведущими дизайнерами для создания уникальных интерьеров, сочетающих эстетику и функциональность, обеспечивая комфорт для гостей.</p>
+                    <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+                </div>
+    
+                <!-- Xizmat 5 -->
+                <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+                    <div class="hover-panel">
+                        <p class="text-lg font-semibold">Увеличьте узнаваемость бренда!</p>
+                    </div>
+                    <i class="fa-solid fa-bullhorn text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Продвижение и маркетинг отеля</h3>
+                    <p class="short text-gray-300 mb-4">Разработка маркетинговых кампаний и повышение узнаваемости бренда.</p>
+                    <p class="full text-gray-300 mb-4 hidden">Мы разрабатываем эффективные маркетинговые кампании, включая digital-маркетинг и PR, чтобы привлечь больше гостей и повысить узнаваемость вашего бренда.</p>
+                    <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+                </div>
+    
+                <!-- Xizmat 6 -->
+                <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+                    <div class="hover-panel">
+                        <p class="text-lg font-semibold">Успешный старт вашего отеля!</p>
+                    </div>
+                    <i class="fa-solid fa-building text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Запуск и пре-опенинг отелей</h3>
+                    <p class="short text-gray-300 mb-4">Поддержка на всех этапах открытия нового отеля.</p>
+                    <p class="full text-gray-300 mb-4 hidden">Мы предоставляем комплексную поддержку на этапах проектирования, строительства и запуска отеля, включая подбор персонала и настройку процессов.</p>
+                    <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+                </div>
+                <!-- Yangi 3 xizmat kartalari -->
+    <!-- Yangi Xizmat 1 -->
+    <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+        <div class="hover-panel">
+            <p class="text-lg font-semibold">Оптимизация процессов отеля</p>
+        </div>
+        <i class="fa-solid fa-gears text-4xl text-blue-400 mb-4"></i>
+        <h3 class="text-2xl font-bold mb-3 text-white">Процесс-менеджмент</h3>
+        <p class="short text-gray-300 mb-4">Мы помогаем оптимизировать внутренние процессы для повышения эффективности.</p>
+        <p class="full text-gray-300 mb-4 hidden">Анализируем все рабочие процессы отеля, выявляем узкие места и внедряем решения для снижения затрат и увеличения производительности.</p>
+        <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+    </div>
+
+    <!-- Yangi Xizmat 2 -->
+    <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+        <div class="hover-panel">
+            <p class="text-lg font-semibold">Создаем комфорт для гостей</p>
+        </div>
+        <i class="fa-solid fa-bed text-4xl text-blue-400 mb-4"></i>
+        <h3 class="text-2xl font-bold mb-3 text-white">Гостевой опыт</h3>
+        <p class="short text-gray-300 mb-4">Разработка уникального опыта для каждого гостя вашего отеля.</p>
+        <p class="full text-gray-300 mb-4 hidden">Помогаем формировать индивидуальные предложения и сервисы, чтобы каждый гость чувствовал себя особенным и хотел возвращаться снова.</p>
+        <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+    </div>
+
+    <!-- Yangi Xizmat 3 -->
+    <div class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4">
+        <div class="hover-panel">
+            <p class="text-lg font-semibold">Эффективная работа с отзывами</p>
+        </div>
+        <i class="fa-solid fa-comments text-4xl text-blue-400 mb-4"></i>
+        <h3 class="text-2xl font-bold mb-3 text-white">Репутационный менеджмент</h3>
+        <p class="short text-gray-300 mb-4">Помогаем управлять отзывами и поддерживать положительный имидж.</p>
+        <p class="full text-gray-300 mb-4 hidden">Сбор, анализ и работа с отзывами гостей, улучшение репутации отеля и повышение доверия клиентов.</p>
+        <button class="more-btn text-blue-400 font-semibold hover:underline">Подробнее</button>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+    <div class="bg-gray-800 text-white p-6">
+  <div class="container mx-auto grid grid-cols-3 gap-6">
+    <div>
+      <h2 class="text-4xl font-bold mb-4">О нас</h2>
+      <p class="text-gray-400">Консультационные услуги HospitalityPro для гостиничного бизнеса</p>
+    </div>
+    <div>
+      <h3 class="text-2xl font-semibold mb-2">Полезные ссылки</h3>
+      <ul class="text-gray-400 space-y-2">
+        <li><a href="#" class="hover:text-white">Главная</a></li>
+        <li><a href="#" class="hover:text-white">О нас</a></li>
+        <li><a href="#" class="hover:text-white">Услуги</a></li>
+        <li><a href="#" class="hover:text-white">Проекты</a></li>
+        <li><a href="#" class="hover:text-white">Статьи</a></li>
+        <li><a href="#" class="hover:text-white">Свяжитесь с нами</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-2xl font-semibold mb-2">Пишите на нас</h3>
+      <p class="text-gray-400">Следите за нами в социальных сетях</p>
+      <div class="flex space-x-4 mt-2">
+        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-telegram"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<footer id="aloqa" class="bg-gray-800 text-white py-8 px-8 md:px-12">
+    <div class="container mx-auto text-center">
+        <p>&copy; 2025 HospitalityPro. Все права защищены.<a href="tel:+998911638338" class="hover:text-blue-300">+998 91 163 83 38</a> | <span id="current-time"></span></p>
+    </div>
+</footer>
+
+<script>
+      // Add fade-in animation when elements come into view
+  document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    elements.forEach(el => observer.observe(el));
+  });
+    // Intersection Observer for Fade-In Animations
+    document.addEventListener('DOMContentLoaded', () => {
+        const elements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        elements.forEach(el => observer.observe(el));
+
+        // Progress Bar Animation
+        const progressBar = document.querySelector('.progress-bar');
+        setTimeout(() => {
+            progressBar.style.width = '100%';
+        }, 500);
+
+        // Expandable Card Logic
+        document.querySelectorAll('.more-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.service-card');
+                const shortText = card.querySelector('.short');
+                const fullText = card.querySelector('.full');
+                
+                shortText.classList.toggle('hidden');
+                fullText.classList.toggle('hidden');
+                card.classList.toggle('expanded');
+                
+                button.textContent = fullText.classList.contains('hidden') ? 'Подробнее' : 'Скрыть';
+            });
+        });
+
+        // Scroll to Top Button Logic
+        const toTopBtn = document.getElementById('toTop');
+        const showAfter = 200;
+        function updateToTopVisibility() {
+            if (window.scrollY > showAfter) {
+                toTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
+                toTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                toTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-6');
+                toTopBtn.classList.remove('opacity-100', 'translate-y-0');
+            }
+        }
+        window.addEventListener('scroll', updateToTopVisibility, { passive: true });
+        window.addEventListener('load', updateToTopVisibility);
+        toTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Accessibility for Scroll to Top and Phone Button
+        const phoneBtn = document.querySelector('a[href="tel:+998911638338"]');
+        [toTopBtn, phoneBtn].forEach(el => {
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    el.click();
+                }
+            });
+        });
+
+        // Pulse Effect for Phone Button
+        let pulseInterval = setInterval(() => {
+            if (!phoneBtn) return;
+            phoneBtn.classList.add('scale-110');
+            setTimeout(() => phoneBtn.classList.remove('scale-110'), 600);
+        }, 3000);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearInterval(pulseInterval);
+            } else {
+                pulseInterval = setInterval(() => {
+                    if (!phoneBtn) return;
+                    phoneBtn.classList.add('scale-110');
+                    setTimeout(() => phoneBtn.classList.remove('scale-110'), 600);
+                }, 3000);
+            }
+        });
+    });
+              // Vaqtni yangilash funksiyasi
+        function updateTime() {
+            const now = new Date();
+            const options = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Asia/Tashkent',
+                timeZoneName: 'short'
+            };
+            const timeString = now.toLocaleTimeString('en-US', options).replace('AM', 'AM +05').replace('PM', 'PM +05');
+            const day = now.toLocaleDateString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+            document.getElementById('current-time').textContent = `${timeString} on ${day}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        document.querySelectorAll(".read-more").forEach(button => {
+            button.addEventListener("click", () => {
+                const card = button.parentElement;
+                const shortText = card.querySelector(".short");
+                const fullText = card.querySelector(".full");
+                
+                shortText.classList.toggle("hidden");
+                fullText.classList.toggle("hidden");
+                
+                button.textContent = fullText.classList.contains("hidden")
+                    ? "Читать Далее ›"
+                    : "Скрыть ▲";
+            });
+        });
+</script>
+
+</body>
+</html>
