@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Контакты - HospitalityPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        body { scroll-behavior: smooth; background-color: #1f2937; color: #f9fafb; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .hero-bg { 
+            background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%); 
+            position: relative; 
+            overflow: hidden; 
+            border-radius: 1rem; 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+        }
+        .hero-bg::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); 
+            animation: pulse 8s infinite; 
+        }
+        @keyframes pulse { 
+            0%, 100% { transform: scale(1); opacity: 0.7; } 
+            50% { transform: scale(1.05); opacity: 1; } 
+        }
+        .progress-bar { 
+            height: 6px; 
+            width: 0; 
+            border-radius: 9999px; 
+            background: linear-gradient(to right, #3b82f6, #1e3a8a); 
+            transition: width 1s ease-in-out; 
+        }
+        #customMap { 
+            width: 100%; 
+            height: 400px; 
+            border-radius: 1rem; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+        }
+        .ymaps-container { 
+            background: linear-gradient(to bottom, #4b5563, #1f2937); 
+            border-radius: 1rem; 
+        }
+        .nav-link { 
+            transition: color 0.3s ease, transform 0.3s ease; 
+        }
+        .nav-link:hover { 
+            color: #60a5fa; 
+            transform: translateY(-2px); 
+        }
+        .input-field { 
+            transition: all 0.3s ease; 
+            background-color: #2d3748; 
+            color: #fff; 
+            border: 1px solid #4b5563; 
+        }
+        .input-field:focus { 
+            border-color: #3b82f6; 
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); 
+            background-color: #374151; 
+        }
+        .submit-btn { 
+            transition: all 0.3s ease; 
+        }
+        .submit-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); 
+        }
+        .contact-info i { 
+            transition: transform 0.3s ease; 
+        }
+        .contact-info:hover i { 
+            transform: scale(1.2); 
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-gray-800 text-white py-6 px-6 md:px-12 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img class="w-16 h-16 rounded-full transition-transform duration-300 hover:rotate-12" src="./hospitality pro profil_pixian_ai.png" alt="Логотип">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight transition-transform duration-300 hover:scale-105">Hospitality <br><span class="text-blue-400">Pro</span></h1>
+                </div>
+            </div>
+            <div class="flex flex-col items-end gap-2">
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="./index.html" class="nav-link font-bold text-lg">Главная</a>
+                    <a href="./онас.html" class="nav-link font-bold text-lg">О нас</a>
+                    <a href="./услуги.html" class="nav-link font-bold text-lg">Услуги</a>
+                    <a href="./проекты.html" class="nav-link font-bold text-lg">Проекты</a>
+                    <a href="./новости.html" class="nav-link font-bold text-lg">Новости & Статьи</a>
+                    <a href="./kontakt.html" class="nav-link font-bold text-lg text-blue-400">Контакты</a>
+                    <a href="./team.html" class="nav-link font-bold text-lg">Наша команда</a>
+                </nav>
+            </div>
+            <div class="md:hidden">
+                <button class="focus:outline-none text-white">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Floating CTA Button -->
+    <a id="phoneBtn" href="tel:+998911638338"
+       class="fixed right-6 top-1/2 z-50 w-14 h-14 mt-[220px] flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg cta-button"
+       aria-label="Телефон" title="Телефон">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h1.5a1 1 0 011 .75l.6 2.4a1 1 0 01-.25.95L6.1 8.9a12.04 12.04 0 005 5l1.8-1.25a1 1 0 01.95-.25l2.4.6A1 1 0 0119 15.5V17a2 2 0 01-2 2A16 16 0 013 5z"/>
+        </svg>
+    </a>
+
+    <!-- Scroll to Top Button -->
+    <button id="toTop" class="fixed right-6 bottom-6 z-50 w-14 h-14 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg opacity-0 pointer-events-none transform translate-y-6 transition-all duration-300 hover:scale-110 focus:outline-none" aria-label="Наверх" title="Наверх">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+        </svg>
+    </button>
+            <section class="py-16 px-6 md:px-12 bg-[#374151] section-bg">
+      <section
+        class="hero-bg text-white py-24 rounded-xl relative overflow-hidden mb-16 bg-cover bg-center"
+        style="
+          background-image: url('./frames-for-your-heart-zSG-kd-L6vw-unsplash.jpg');
+        "
+      >
+        <div class="max-w-5xl mx-auto text-center fade-in">
+          <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6">Свяжитесь с нами</h1>
+          <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+Заполните форму ниже, чтобы связаться с нами и получить консультацию.          </p>
+          <div class="progress-bar mt-6 mx-auto max-w-md"></div>
+        </div>
+      </section>
+      </section>
+
+    <!-- Contact Form and Info -->
+    <div class="max-w-7xl mx-auto px-6 fade-in grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+        <div class="md:col-span-2 bg-gray-800 p-10 rounded-xl shadow-lg">
+            <h3 class="text-2xl font-bold mb-6 text-white text-center">Заполните форму</h3>
+            <div id="responseMessage" class="mb-4 font-semibold text-white"></div>
+            <form id="contactForm" class="grid grid-cols-1 gap-6">
+                <input type="text" name="fullName" placeholder="Полное имя" required class="input-field w-full rounded-lg px-4 py-4 text-lg focus:outline-none" />
+                <input type="tel" name="phone" placeholder="Номер телефона" required class="input-field w-full rounded-lg px-4 py-4 text-lg focus:outline-none" />
+                <input type="email" name="email" placeholder="Электронная почта" required class="input-field w-full rounded-lg px-4 py-4 text-lg focus:outline-none" />
+                <input type="text" name="address" id="addressInput" placeholder="Адрес (например, HUSMA Hotel & Spa, Ташкент)" required class="input-field w-full rounded-lg px-4 py-4 text-lg focus:outline-none" />
+                <input type="text" name="services" placeholder="Услуги" required class="input-field w-full rounded-lg px-4 py-4 text-lg focus:outline-none" />
+                <textarea name="message" rows="6" placeholder="Сообщение" required class="input-field w-full rounded-lg px-4 py-4 text-lg focus:outline-none"></textarea>
+                <button type="submit" class="submit-btn bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-lg font-semibold mt-2 w-full transition border-4 border-white">ОТПРАВИТЬ</button>
+            </form>
+            <div id="geoResult" class="mt-4 text-sm text-gray-300"></div>
+        </div>
+
+        <div class="bg-gray-800 p-8 rounded-xl shadow-lg flex flex-col justify-start text-white">
+            <div class="space-y-6 text-lg">
+                <p class="contact-info flex items-center gap-3"><i class="fa-solid fa-phone text-blue-400"></i> +998 91 163 83 38</p>
+                <p class="contact-info flex items-center gap-3"><i class="fa-solid fa-envelope text-blue-400"></i> info@hospitalitypro.uz</p>
+                <p class="contact-info flex items-center gap-3"><i class="fa-solid fa-location-dot text-blue-400"></i> Ташкент, Сирғали тумани, Ўзбекистон кўчаси, 45-уй (HUSMA Hotel & Spa яқинида)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="max-w-7xl mx-auto px-6 mb-16 fade-in">
+        <h3 class="text-2xl font-bold mb-4 text-white">Наш адрес</h3>
+        <div id="customMap" class="w-full h-96"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-gray-800 text-white p-6">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <h2 class="text-4xl font-bold mb-4">О нас</h2>
+                <p class="text-gray-400">Консультационные услуги HospitalityPro для гостиничного бизнеса</p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-2">Полезные ссылки</h3>
+                <ul class="text-gray-400 space-y-2">
+                    <li><a href="./index.html" class="hover:text-white">Главная</a></li>
+                    <li><a href="./онас.html" class="hover:text-white">О нас</a></li>
+                    <li><a href="./услуги.html" class="hover:text-white">Услуги</a></li>
+                    <li><a href="./проекты.html" class="hover:text-white">Проекты</a></li>
+                    <li><a href="#yangiliklar" class="hover:text-white">Новости</a></li>
+                    <li><a href="#maqolalar" class="hover:text-white">Статьи</a></li>
+                    <li><a href="./kontakt.html" class="hover:text-white">Свяжитесь с нами</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-2">Пишите нам</h3>
+                <p class="text-gray-400">Следите за нами в социальных сетях</p>
+                <div class="flex space-x-4 mt-2">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="aloqa" class="bg-gray-800 text-white py-8 px-8 md:px-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 HospitalityPro. Все права защищены. <a href="tel:+998911638338" class="hover:text-blue-300">+998 91 163 83 38</a> | <span id="current-time"></span></p>
+        </div>
+    </footer>
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_UZ" type="text/javascript"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Fade-in animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Progress bar animation
+        const progressBar = document.querySelector('.progress-bar');
+        if (progressBar) setTimeout(() => { progressBar.style.width = '100%'; }, 500);
+
+        // Form validation and submission
+        const form = document.getElementById('contactForm');
+        const responseMessage = document.getElementById('responseMessage');
+        const addressInput = document.getElementById('addressInput');
+        const geoResult = document.getElementById('geoResult');
+
+        function isValidPhone(phone) {
+            return /^\+?([0-9]{9,15})$/.test(phone.replace(/\D/g, ''));
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const requiredFields = ['fullName', 'phone', 'email', 'address', 'services', 'message'];
+            for (let field of requiredFields) {
+                if (!formData.get(field).trim()) {
+                    responseMessage.textContent = 'Пожалуйста, заполните все обязательные поля!';
+                    responseMessage.classList.remove('text-green-400');
+                    responseMessage.classList.add('text-red-400');
+                    return;
+                }
+            }
+            const phone = formData.get('phone').replace(/\D/g, '');
+            if (!isValidPhone(phone)) {
+                responseMessage.textContent = 'Пожалуйста, введите корректный номер телефона!';
+                responseMessage.classList.remove('text-green-400');
+                responseMessage.classList.add('text-red-400');
+                return;
+            }
+            responseMessage.textContent = 'Форма успешно отправлена!';
+            responseMessage.classList.remove('text-red-400');
+            responseMessage.classList.add('text-green-400');
+            form.reset();
+        });
+
+        // Address geocoding
+        addressInput.addEventListener('input', () => {
+            const address = addressInput.value.trim();
+            if (address.length > 3 && typeof ymaps !== 'undefined') {
+                ymaps.geocode(address, { lang: 'ru_UZ' })
+                    .then(res => {
+                        const firstResult = res.geoObjects.get(0);
+                        if (firstResult) {
+                            const coords = firstResult.geometry.getCoordinates();
+                            myMap.setCenter(coords, 14);
+                            myMap.geoObjects.removeAll();
+                            var newMarker = new ymaps.Placemark(coords, {
+                                balloonContent: `<b>${address}</b><br>Найдено`
+                            });
+                            myMap.geoObjects.add(newMarker);
+                            geoResult.textContent = `Адрес найден: ${coords}`;
+                            geoResult.classList.remove('text-red-400');
+                            geoResult.classList.add('text-green-400');
+                        } else {
+                            geoResult.textContent = 'Адрес не найден!';
+                            geoResult.classList.remove('text-green-400');
+                            geoResult.classList.add('text-red-400');
+                        }
+                    })
+                    .catch(err => {
+                        geoResult.textContent = 'Ошибка геокодирования!';
+                        geoResult.classList.remove('text-green-400');
+                        geoResult.classList.add('text-red-400');
+                        console.error(err);
+                    });
+            }
+        });
+
+        // Initialize Yandex Map
+        ymaps.ready(init);
+        function init() {
+            window.myMap = new ymaps.Map("customMap", {
+                center: [41.311081, 69.240562],
+                zoom: 14,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+
+            var mainOffice = new ymaps.Placemark([41.311081, 69.240562], {
+                balloonContent: '<b>HospitalityPro Офис</b><br>Ташкент, Сирғали тумани, Ўзбекистон кўчаси, 45-уй (HUSMA Hotel & Spa яқинида)'
+            });
+            var husmaMarker = new ymaps.Placemark([41.2995, 69.2450], {
+                balloonContent: '<b>HUSMA Hotel & Spa</b><br>Ташкент, Сирғали тумани'
+            });
+            myMap.geoObjects.add(mainOffice).add(husmaMarker);
+        }
+
+        // Scroll to Top
+        const toTopBtn = document.getElementById('toTop');
+        const phoneBtn = document.getElementById('phoneBtn');
+        const showAfter = 200;
+
+        function updateToTopVisibility() {
+            if (window.scrollY > showAfter) {
+                toTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
+                toTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                toTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-6');
+                toTopBtn.classList.remove('opacity-100', 'translate-y-0');
+            }
+        }
+
+        window.addEventListener('scroll', updateToTopVisibility, { passive: true });
+        window.addEventListener('load', updateToTopVisibility);
+
+        toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        if (toTopBtn) {
+            toTopBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toTopBtn.click();
+                }
+            });
+        }
+
+        if (phoneBtn) {
+            phoneBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    phoneBtn.click();
+                }
+            });
+        }
+
+        let pulseInterval = setInterval(() => {
+            if (!phoneBtn) return;
+            phoneBtn.classList.add('scale-[1.10]');
+            setTimeout(() => phoneBtn.classList.remove('scale-[1.10]'), 600);
+        }, 3000);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearInterval(pulseInterval);
+            } else {
+                pulseInterval = setInterval(() => {
+                    if (!phoneBtn) return;
+                    phoneBtn.classList.add('scale-[1.06]');
+                    setTimeout(() => phoneBtn.classList.remove('scale-[1.06]'), 300);
+                }, 4000);
+            }
+        });
+
+        [toTopBtn, phoneBtn].forEach(el => {
+            if (el) {
+                el.addEventListener('focus', () => el.classList.add('focus-ring'));
+                el.addEventListener('blur', () => el.classList.remove('focus-ring'));
+            }
+        });
+
+        // Current Time
+        function updateTime() {
+            const now = new Date();
+            const options = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Asia/Tashkent',
+                timeZoneName: 'short'
+            };
+            const timeString = now.toLocaleTimeString('en-US', options).replace('AM', 'AM +05').replace('PM', 'PM +05');
+            const day = now.toLocaleDateString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+            document.getElementById('current-time').textContent = `${timeString} в ${day}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    });
+    </script>
+</body>
+</html>
