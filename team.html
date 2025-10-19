@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Наша команда - HospitalityPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .team-card { 
+            transition: all 0.3s ease; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .team-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); 
+        }
+        .team-card:hover .social-links { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .social-links { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: all 0.3s ease; 
+        }
+        .nav-link { 
+            transition: color 0.3s ease, transform 0.3s ease; 
+        }
+        .nav-link:hover { 
+            color: #60a5fa; 
+            transform: translateY(-2px); 
+        }
+      .card-hover {
+        position: relative;
+        overflow: hidden;
+      }
+      .hover-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(37, 99, 235, 0.9);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        text-align: center;
+        padding: 1rem;
+      }
+      .card-hover:hover .hover-panel {
+        opacity: 1;
+        transform: scale(1);
+      }
+            .service-card {
+        transition: max-height 0.5s ease;
+      }
+      .service-card.expanded {
+        max-height: 600px;
+      }
+      .progress-bar {
+        height: 4px;
+        background: linear-gradient(to right, #3b82f6, #1e3a8a);
+        width: 0;
+        transition: width 1s ease-in-out;
+      }
+      .nav-link {
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+      .nav-link:hover {
+        color: #60a5fa;
+        transform: translateY(-2px);
+      }
+    </style>
+</head>
+<body>
+    <!-- Header (asl sahifadan ko'chirilgan) -->
+    <header class="bg-gray-800 text-white py-6 px-6 md:px-12 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img class="w-16 h-16 rounded-full transition-transform duration-300 hover:rotate-12" src="./hospitality pro profil_pixian_ai.png" alt="Логотип">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight transition-transform duration-300 hover:scale-105">Hospitality <br><span class="text-blue-400">Pro</span></h1>
+                </div>
+            </div>
+            <div class="flex flex-col items-end gap-2">
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="./index.html" class="nav-link font-bold text-lg">Главная</a>
+                    <a href="./онас.html" class="nav-link font-bold text-lg">О нас</a>
+                    <a href="./услуги.html" class="nav-link font-bold text-lg">Услуги</a>
+                    <a href="./проекты.html" class="nav-link font-bold text-lg">Проекты</a>
+                    <a href="./новости.html" class="nav-link font-bold text-lg">Новости & Статьи</a>
+                    <a href="./kontakt.html" class="nav-link font-bold text-lg">Контакты</a>
+                    <a href="./team.html" class="nav-link font-bold text-lg text-blue-400">Наша команда</a>
+                </nav>
+            </div>
+            <div class="md:hidden">
+                <button class="focus:outline-none text-white">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Floating CTA Button -->
+    <a id="phoneBtn" href="tel:+998911638338" class="fixed right-6 top-1/2 z-50 w-14 h-14 mt-[220px] flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg cta-button" aria-label="Телефон" title="Телефон">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h1.5a1 1 0 011 .75l.6 2.4a1 1 0 01-.25.95L6.1 8.9a12.04 12.04 0 005 5l1.8-1.25a1 1 0 01.95-.25l2.4.6A1 1 0 0119 15.5V17a2 2 0 01-2 2A16 16 0 013 5z"/>
+        </svg>
+    </a>
+
+    <!-- Scroll to Top Button -->
+    <button id="toTop" class="fixed right-6 bottom-6 z-50 w-14 h-14 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg opacity-0 pointer-events-none transform translate-y-6 transition-all duration-300 hover:scale-110 focus:outline-none" aria-label="Наверх" title="Наверх">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <!-- Main Content -->
+    <main class="bg-gray-700 text-white">
+        <section class="max-w-7xl mx-auto px-6 py-20">
+            <div class="text-center mb-12 fade-in">
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6">Наша команда</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">Познакомьтесь с профессионалами, которые делают ваш бизнес успешным!</p>
+                <div class="progress-bar mt-6 mx-auto max-w-md"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
+
+
+                <!-- Team Member 1 -->
+                <div class="card-hover bg-gray-800 p-6 rounded-xl shadow-lg team-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white">
+                  <img class="w-full h-64 object-cover rounded-lg mb-4"src="./photo_2025-10-09_20-46-15.jpg"alt="Haydarov Sirojiddin"/>
+                  <div class="hover-panel flex flex-col">
+                    <p class="text-white">Опытный консультант по гостиничному бизнесу с более чем 20+ годами опыта.</p>
+                    <br>
+                    <div class="flex gap-6">
+                        <a href="#" class="text-white hover:text-blue-600"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+                    </div>
+                  </div>
+                  <h3 class="text-xl text-white mt-4 font-semibold">Haydarov Sirojiddin</h3>
+                   <p class="text-gray-300 mb-4">Генеральный директор и основатель</p>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="team-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white">
+                    <img class="w-full h-64 object-cover rounded-lg mb-4" src="." alt="Азизова Зилола">
+                    <h3 class="text-2xl font-bold text-white mb-2">Азизова Зилола</h3>
+                    <p class="text-gray-300 mb-4">Эксперт по маркетингу</p>
+                    <div class="social-links flex justify-center gap-4">
+                        <a href="#" class="text-blue-400 hover:text-blue-600"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <!-- Team Member 3 -->
+                <div class="team-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white">
+                    <img class="w-full h-64 object-cover rounded-lg mb-4" src="." alt="Ибрагимов Ахмад">
+                    <h3 class="text-2xl font-bold text-white mb-2">Ибрагимов Ахмад</h3>
+                    <p class="text-gray-300 mb-4">Специалист по кухне и сервису</p>
+                    <div class="social-links flex justify-center gap-4">
+                        <a href="#" class="text-blue-400 hover:text-blue-600"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- <footer> -->
+    <div class="bg-gray-800 text-white p-6">
+      <div class="container mx-auto grid grid-cols-3 gap-6">
+        <div>
+          <h2 class="text-4xl font-bold mb-4">О нас</h2>
+          <p class="text-gray-400">
+            Консультационные услуги HospitalityPro для гостиничного бизнеса
+          </p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold mb-2">Полезные ссылки</h3>
+          <ul class="text-gray-400 space-y-2">
+            <li><a href="#" class="hover:text-white">Главная</a></li>
+            <li><a href="#" class="hover:text-white">О нас</a></li>
+            <li><a href="#" class="hover:text-white">Услуги</a></li>
+            <li><a href="#" class="hover:text-white">Проекты</a></li>
+            <li><a href="#" class="hover:text-white">Статьи</a></li>
+            <li><a href="#" class="hover:text-white">Свяжитесь с нами</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold mb-2">Пишите на нас</h3>
+          <p class="text-gray-400">Следите за нами в социальных сетях</p>
+          <div class="flex space-x-4 mt-2">
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fa-brands fa-telegram"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer id="aloqa" class="bg-gray-800 text-white py-8 px-8 md:px-12">
+        <div class="container mx-auto text-center">
+            <p>
+                &copy; 2025 HospitalityPro. Все права защищены.
+                <a href="tel:+998911638338" class="hover:text-blue-300">+998 91 163 83 38</a> | 
+                <span id="current-time"></span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Fade-in animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Progress bar animation
+        const progressBar = document.querySelector('.progress-bar');
+        if (progressBar) setTimeout(() => { progressBar.style.width = '100%'; }, 500);
+
+        // Scroll to Top
+        const toTopBtn = document.getElementById('toTop');
+        const phoneBtn = document.getElementById('phoneBtn');
+        const showAfter = 200;
+
+        function updateToTopVisibility() {
+            if (window.scrollY > showAfter) {
+                toTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
+                toTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                toTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-6');
+                toTopBtn.classList.remove('opacity-100', 'translate-y-0');
+            }
+        }
+
+        window.addEventListener('scroll', updateToTopVisibility, { passive: true });
+        window.addEventListener('load', updateToTopVisibility);
+
+        toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        if (toTopBtn) {
+            toTopBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toTopBtn.click();
+                }
+            });
+        }
+
+        if (phoneBtn) {
+            phoneBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    phoneBtn.click();
+                }
+            });
+        }
+
+        let pulseInterval = setInterval(() => {
+            if (!phoneBtn) return;
+            phoneBtn.classList.add('scale-[1.10]');
+            setTimeout(() => phoneBtn.classList.remove('scale-[1.10]'), 600);
+        }, 3000);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearInterval(pulseInterval);
+            } else {
+                pulseInterval = setInterval(() => {
+                    if (!phoneBtn) return;
+                    phoneBtn.classList.add('scale-[1.06]');
+                    setTimeout(() => phoneBtn.classList.remove('scale-[1.06]'), 300);
+                }, 4000);
+            }
+        });
+
+        [toTopBtn, phoneBtn].forEach(el => {
+            if (el) {
+                el.addEventListener('focus', () => el.classList.add('focus-ring'));
+                el.addEventListener('blur', () => el.classList.remove('focus-ring'));
+            }
+        });
+
+        // Current Time
+        function updateTime() {
+            const now = new Date();
+            const options = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Asia/Tashkent',
+                timeZoneName: 'short'
+            };
+            const timeString = now.toLocaleTimeString('en-US', options).replace('AM', 'AM +05').replace('PM', 'PM +05');
+            const day = now.toLocaleDateString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+            document.getElementById('current-time').textContent = `${timeString} в ${day}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    });
+    </script>
+</body>
+</html>
