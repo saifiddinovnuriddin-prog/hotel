@@ -1,646 +1,1351 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uz">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HotelPro - Mehmonxona biznesi uchun konsalting</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HotelityPro - Mehmonxona biznesi uchun konsalting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+              .team-card { 
+            transition: all 0.3s ease; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .team-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); 
+        }
+        .team-card:hover .social-links { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        .social-links { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: all 0.3s ease; 
+        }
       .modal {
-          display: none;
-          position: fixed;
-          z-index: 50;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          overflow: auto;
-          background-color: rgba(0,0,0,0.8);
+        display: none;
+        position: fixed;
+        z-index: 50;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
       }
       .modal-content {
-          margin: 5% auto;
-          display: block;
-          max-width: 90%;
-          max-height: 90%;
-          border-radius: 8px;
-          position: relative;
+        margin: 5% auto;
+        display: block;
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 8px;
+        position: relative;
       }
       .close {
-          color: #fff;
-          position: absolute;
-          top: 15px;
-          right: 35px;
-          font-size: 40px;
-          font-weight: bold;
-          cursor: pointer;
+        color: #fff;
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
       }
-      .close:hover { color: #1E3A8A; }
+      .close:hover {
+        color: #1e3a8a;
+      }
       .next-btn {
-          position: absolute;
-          top: 50%;
-          right: 10px;
-          transform: translateY(-50%);
-          background-color: rgba(30, 58, 138, 0.7);
-          color: #fff;
-          border: none;
-          padding: 10px;
-          cursor: pointer;
-          font-size: 20px;
-          border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background-color: rgba(30, 58, 138, 0.7);
+        color: #fff;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        border-radius: 50%;
       }
-      .next-btn:hover { background-color: #1E3A8A; }
-      
-      /* Slider styles */
+      .next-btn:hover {
+        background-color: #1e3a8a;
+      }
+
       .slide {
-          transition: transform 800ms cubic-bezier(0.4, 0, 0.2, 1), opacity 400ms ease-in-out;
-          position: relative;
-          width: 100vw;
-          flex-shrink: 0;
+        transition: transform 800ms cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 400ms ease-in-out;
+        position: relative;
+        width: 100vw;
+        flex-shrink: 0;
       }
-.slider-image {
-    width: 100%;         /* Ekran chetidan chiqmasin */
-    max-width: 100%;     /* Chegarani buzmasin */
-    height: 80vh;
-    object-fit: cover;
-    display: block;
-    position: relative;
-}
+      .slider-image {
+        width: 100%;
+        height: 100%; /* Slider balandligiga moslashtirish */
+        object-fit: cover;
+        display: block;
+      }
 
       .slide-text {
-          position: absolute;
-          top: 50%;
-          left: 5%;
-          transform: translateY(-50%);
-          color: white;
-          font-size: 1.5rem;
-          font-weight: bold;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-          text-align: left;
-          padding: 1.5rem;
-          background-color: transparent;
-          border-radius: 0.5rem;
-          max-width: 50%;
-          animation: slideIn 1s ease-out forwards;
-          z-index: 10;
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        transform: translateY(-50%);
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        text-align: left;
+        padding: 1.5rem;
+        background-color: transparent;
+        border-radius: 0.5rem;
+        max-width: 50%;
+        animation: slideIn 1s ease-out forwards;
+        z-index: 10;
       }
       .slide-button {
-          position: absolute;
-          top: 70%;
-          left: 5%;
-          transform: translateY(-50%);
-          padding: 12px 24px;
-          font-size: 1.2rem;
-          font-weight: bold;
-          background-color: #1E3A8A;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          transition: background-color 300ms ease, transform 200ms ease;
-          z-index: 10;
+        position: absolute;
+        top: 70%;
+        left: 5%;
+        padding: 12px 24px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 300ms ease, transform 200ms ease;
+        z-index: 10;
       }
       .slide-button:hover {
-          background-color: #1B2C8A;
-          transform: scale(1.05);
+        background-color: #1b2c8a;
+        transform: scale(1.05);
       }
       @keyframes slideIn {
-          from {
-              top: 60%;
-              opacity: 0;
-          }
-          to {
-              top: 50%;
-              opacity: 1;
-          }
+        from {
+          top: 60%;
+          opacity: 0;
+        }
+        to {
+          top: 50%;
+          opacity: 1;
+        }
       }
       @keyframes shake {
-          0% { transform: translateY(0); }
-          25% { transform: translateY(5px); }
-          50% { transform: translateY(-5px); }
-          75% { transform: translateY(5px); }
-          100% { transform: translateY(0); }
+        0% {
+          transform: translateY(0);
+        }
+        25% {
+          transform: translateY(5px);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+        75% {
+          transform: translateY(5px);
+        }
+        100% {
+          transform: translateY(0);
+        }
       }
       #slider {
-          overflow: hidden;
-          width: 100vw;
+        overflow: hidden;
+        width: 100vw;
+        height: calc(80vh - 96px); /* Header balandligini hisobga olgan holda */
       }
       #slides {
-          width: 300vw;
-          display: flex;
+        width: 300vw;
+        display: flex;
+        height: 100%;
       }
-/* Slayderdagi rasm */
-.slider-image {
-    width: 100%;         /* Ekran chetidan chiqmasin */
-    max-width: 100%;     /* Chegarani buzmasin */
-    height: 80vh;
-    object-fit: cover;
-    display: block;
-    position: relative;
-}
 
-/* HTML va Body scrollni cheklash */
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;  /* Gorizontal scroll bo‘lmasin */
-}
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
 
-/* Agar sizda .slider-container yoki .image-container bo‘lsa */
-.slider-container, .image-container {
-    width: 100%;
-    overflow: hidden;
-}
-
-  </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
-    <!-- Header -->
-    <header class="bg-gray-800 text-white py-6 px-6 md:px-12 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo -->
-            <div class="flex items-center">
-                <img class="w-16 h-16 font-bold" src="./hospitality pro profil_pixian_ai.png" alt="">
-                <div class="">
-                    <h1 class="text-2xl font-bold">Hotelity</h1>
-                    <h1 class="text-2xl font-bold text-[#1B2C8A]">Pro</h1>
-                </div>
-            </div>
-            <!-- Navigatsiya -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="#rejalashtirish" class="hover:text-blue-300 transition font-bold">Главная</a>
-                <a href="#bizhaqimizda" class="hover:text-blue-300 transition font-bold">О нас</a>
-                <a href="#xizmatlar" class="hover:text-blue-300 transition font-bold">Услуги</a>
-                <a href="#loyiha" class="hover:text-blue-300 transition font-bold">Проекты</a>
-                <a href="#yangiliklar" class="hover:text-blue-300 transition font-bold">Новости</a>
-                <a href="#maqolalar" class="hover:text-blue-300 transition font-bold">Статьи</a>
-                <a href="#aloqa" class="hover:text-blue-300 transition font-bold">Контакты</a>
-                <a href="#loyalti" class="hover:text-blue-300 transition font-bold">Лояльность</a>
-            </nav>
-            <!-- Mobil toggle -->
-            <div class="md:hidden">
-                <button class="focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
+      .slider-container,
+      .image-container {
+        width: 100%;
+        overflow: hidden;
+      }
+      .card-hover {
+        position: relative;
+        overflow: hidden;
+      }
+      .hover-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(37, 99, 235, 0.9);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        text-align: center;
+        padding: 1rem;
+      }
+      .card-hover:hover .hover-panel {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .service-card {
+        transition: max-height 0.5s ease;
+      }
+      .service-card.expanded {
+        max-height: 600px;
+      }
+      .progress-bar {
+        height: 4px;
+        background: linear-gradient(to right, #3b82f6, #1e3a8a);
+        width: 0;
+        transition: width 1s ease-in-out;
+      }
+      .nav-link {
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+      .nav-link:hover {
+        color: #60a5fa;
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <header class="bg-gray-800 text-white py-6 px-6 md:px-12 shadow-lg fixed top-0 left-0 w-full z-50">
+      <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <div class="flex items-center gap-4">
+          <img
+            class="w-16 h-16 rounded-full transition-transform duration-300 hover:rotate-12"
+            src="./hospitality pro profil_pixian_ai.png"
+            alt="Logo"
+          />
+          <div>
+            <h1
+              class="text-3xl font-extrabold tracking-tight transition-transform duration-300 hover:scale-105"
+            >
+              Hospitality <br /><span class="text-blue-400">Pro</span>
+            </h1>
+          </div>
         </div>
+        <!-- Navigatsiya -->
+        <div class="flex flex-col items-end gap-2">
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/hospitality__pro/#"
+              class="text-gray-400 hover:text-blue-400 nav-link"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"
+              ><i class="fa-brands fa-telegram"></i
+            ></a>
+          </div>
+          <nav class="hidden md:flex space-x-8">
+            <a href="./index.html" class="nav-link font-bold text-lg text-blue-400">Главная</a>
+            <a href="./онас.html" class="nav-link font-bold text-lg">О нас</a>
+            <a href="./услуги.html" class="nav-link font-bold text-lg">Услуги</a>
+            <a href="./проекты.html" class="nav-link font-bold text-lg">Проекты</a>
+            <a href="./новости.html" class="nav-link font-bold text-lg">Новости & Статьи</a>
+            <a href="./kontakt.html" class="nav-link font-bold text-lg">Контакты</a>
+            <a href="./team.html" class="nav-link font-bold text-lg">Наша команда</a>
+          </nav>
+        </div>
+        <!-- Mobil toggle -->
+        <div class="md:hidden">
+          <button class="focus:outline-none text-white">
+            <svg
+              class="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
     </header>
+    <!-- Floating CTA Button -->
+    <a
+      href="tel:+998911638338"
+      class="fixed right-6 top-1/2 z-50 w-14 h-14 mt-[220px] flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg cta-button"
+      aria-label="Telefon"
+      title="Telefon"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-7 h-7"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 5a2 2 0 012-2h1.5a1 1 0 011 .75l.6 2.4a1 1 0 01-.25.95L6.1 8.9a12.04 12.04 0 005 5l1.8-1.25a1 1 0 01.95-.25l2.4.6A1 1 0 0119 15.5V17a2 2 0 01-2 2A16 16 0 013 5z"
+        />
+      </svg>
+    </a>
 
-    <main>
-        <div class="relative w-full">
-            <!-- Slider viewport -->
-            <div id="slider" class="overflow-hidden relative rounded-lg shadow-lg">
-                <div id="slides" class="flex w-full h-full slide-container">
-                    <!-- Slide 1 -->
-                    <div class="w-screen flex-shrink-0 slide" data-index="0">
-                        <img src="./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg" alt="Rasm 1" class="w-screen slider-image">
-                        <div class="slide-text">
-                            Мы помогаем эффективно управлять вашим бизнесом.<br>
-                            Наши решения обеспечивают уверенность.
-                        </div>
-                        <button class="slide-button" onclick="openModal(0)">Свяжитесь с нами</button>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="w-screen flex-shrink-0 slide" data-index="1">
-                        <img src="./AKRA_HOTEL_GENERAL_VIEW_3_1_11zon_vgcrhx.jpg" alt="Rasm 2" class="w-screen slider-image">
-                        <div class="slide-text">
-                            Мы создаём высокоэффективные команды.<br>
-                            Гарантия результатов и продуктивности.
-                        </div>
-                        <button class="slide-button" onclick="openModal(1)">Свяжитесь с нами</button>
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="w-screen flex-shrink-0 slide" data-index="2">
-                        <img src="./d5affdd0912d4265f1dc457c2ea4fa35.jpg" alt="Rasm 3" class="w-screen slider-image">
-                        <div class="slide-text">
-                            Лидер в консалтинге гостиничного бизнеса.<br>
-                            Мы бережно заботимся о вашем отеле.
-                        </div>
-                        <button class="slide-button" onclick="openModal(2)">Свяжитесь с нами</button>
-                    </div>
-                </div>
+    <!-- Scroll to Top Button -->
+    <button
+      id="toTop"
+      class="fixed right-6 bottom-6 z-50 w-14 h-14 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg opacity-0 pointer-events-none transform translate-y-6 transition-all duration-300 hover:scale-110 focus:outline-none"
+      aria-label="Tepaga"
+      title="Tepaga"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-7 h-7"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5 15l7-7 7 7"
+        />
+      </svg>
+    </button>
 
-                <!-- Left button -->
-                <button id="prevBtn" aria-label="Oldingi" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white p-3 rounded-full shadow-md transition-all duration-300">
-                    <span class="text-xl font-bold select-none">&lt;</span>
-                </button>
+    <script>
+      (function () {
+        const toTopBtn = document.getElementById("toTop");
+        const phoneBtn = document.getElementById("phoneBtn");
+        const showAfter = 200;
 
-                <!-- Right button -->
-                <button id="nextBtn" aria-label="Keyingi" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white p-3 rounded-full shadow-md transition-all duration-300">
-                    <span class="text-xl font-bold select-none">&gt;</span>
-                </button>
+        function updateToTopVisibility() {
+          if (window.scrollY > showAfter) {
+            toTopBtn.classList.remove(
+              "opacity-0",
+              "pointer-events-none",
+              "translate-y-6"
+            );
+            toTopBtn.classList.add("opacity-100", "translate-y-0");
+          } else {
+            toTopBtn.classList.add(
+              "opacity-0",
+              "pointer-events-none",
+              "translate-y-6"
+            );
+            toTopBtn.classList.remove("opacity-100", "translate-y-0");
+          }
+        }
 
-                <!-- Dots -->
-                <div id="dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                    <button class="w-3 h-3 rounded-full bg-white/70 ring-0 transition-all duration-300" data-dot="0"></button>
-                    <button class="w-3 h-3 rounded-full bg-white/50 transition-all duration-300" data-dot="1"></button>
-                    <button class="w-3 h-3 rounded-full bg-white/50 transition-all duration-300" data-dot="2"></button>
-                </div>
+        window.addEventListener("scroll", updateToTopVisibility, {
+          passive: true,
+        });
+        window.addEventListener("load", updateToTopVisibility);
+
+        toTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        toTopBtn.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toTopBtn.click();
+          }
+        });
+
+        if (phoneBtn) {
+          phoneBtn.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              phoneBtn.click();
+            }
+          });
+
+          let pulseInterval = setInterval(() => {
+            phoneBtn.classList.add("scale-[1.10]");
+            setTimeout(() => phoneBtn.classList.remove("scale-[1.10]"), 600);
+          }, 3000);
+
+          document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+              clearInterval(pulseInterval);
+            } else {
+              pulseInterval = setInterval(() => {
+                phoneBtn.classList.add("scale-[1.06]");
+                setTimeout(
+                  () => phoneBtn.classList.remove("scale-[1.06]"),
+                  300
+                );
+              }, 4000);
+            }
+          });
+
+          phoneBtn.addEventListener("focus", () =>
+            phoneBtn.classList.add("focus-ring")
+          );
+          phoneBtn.addEventListener("blur", () =>
+            phoneBtn.classList.remove("focus-ring")
+          );
+        }
+
+        toTopBtn.addEventListener("focus", () =>
+          toTopBtn.classList.add("focus-ring")
+        );
+        toTopBtn.addEventListener("blur", () =>
+          toTopBtn.classList.remove("focus-ring")
+        );
+      })();
+    </script>
+
+    <main class="pt-24"> <!-- Header balandligiga mos padding -->
+      <div class="relative w-full bg-gray-800">
+        <div id="slider" class="overflow-hidden relative shadow-lg">
+          <div id="slides" class="flex w-full h-full slide-container">
+            <div
+              class="w-screen h-full flex-shrink-0 slide bg-cover bg-center relative"
+              style="
+                background-image: url('./The Lush and Luxurious Sanya EDITION on Hainan Island.jpg');
+              "
+              data-index="0"
+            >
+              <div class="slide-text">
+                Мы помогаем эффективно управлять вашим бизнесом.<br />
+                Наши решения обеспечивают уверенность.
+              </div>
+              <button class="slide-button" onclick="openModal(0)">
+                Свяжитесь с нами
+              </button>
             </div>
 
-            <!-- Rasmni ko'rish tugmasi -->
-            <div class="text-center mt-8">
-                <button id="viewImageBtn" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">Rasmni ko'rish</button>
+            <div
+              class="w-screen h-full flex-shrink-0 slide bg-cover bg-center relative"
+              style="
+                background-image: url('./e630db9e931df9ea09a6090cf5dbfa89.jpg');
+              "
+              data-index="1"
+            >
+              <div class="slide-text">
+                Мы создаём высокоэффективные команды.<br />
+                Гарантия результатов и продуктивности.
+              </div>
+              <button class="slide-button" onclick="openModal(1)">
+                Свяжитесь с нами
+              </button>
             </div>
+
+            <div
+              class="w-screen h-full flex-shrink-0 slide bg-cover bg-center relative"
+              style="
+                background-image: url('./AKRA_HOTEL_GENERAL_VIEW_3_1_11zon_vgcrhx.jpg');
+              "
+              data-index="2"
+            >
+              <div class="slide-text">
+                Лидер в консалтинге гостиничного бизнеса.<br />
+                Мы бережно заботимся о вашем отеле.
+              </div>
+              <button class="slide-button" onclick="openModal(2)">
+                Свяжитесь с нами
+              </button>
+            </div>
+          </div>
+
+          <!-- Left button -->
+          <button
+            id="prevBtn"
+            aria-label="Oldingi"
+            class="hover:scale-105 absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white p-3 rounded-full shadow-md transition-all duration-300"
+          >
+            <span class="text-xl font-bold select-none">&lt;</span>
+          </button>
+
+          <!-- Right button -->
+          <button
+            id="nextBtn"
+            aria-label="Keyingi"
+            class="hover:scale-105 absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white p-3 rounded-full shadow-md transition-all duration-300"
+          >
+            <span class="text-xl font-bold select-none">&gt;</span>
+          </button>
+
+          <!-- Dots -->
+          <div
+            id="dots"
+            class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2"
+          >
+            <button
+              class="w-3 h-3 rounded-full bg-white/70 ring-0 transition-all duration-300"
+              data-dot="0"
+            ></button>
+            <button
+              class="w-3 h-3 rounded-full bg-white/50 transition-all duration-300"
+              data-dot="1"
+            ></button>
+            <button
+              class="w-3 h-3 rounded-full bg-white/50 transition-all duration-300"
+              data-dot="2"
+            ></button>
+          </div>
         </div>
 
-        <!-- Полезные статьи секцияси -->
-        <section id="maqolalar" class="py-12 bg-gray-100">
-            <div class="container mx-auto px-4">
-                <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Полезные статьи</h1>
-                <h1 class="text-4xl font-bold text-center text-gray-800 mb-8 mt-[-33px]">__ __</h1>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Maqola 1 -->
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-105">
-                        <img src="./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg" alt="">
-                        <h3 class="text-xl font-semibold text-white mb-2">Husma Hotel & Spa</h3>
-                        <p class="text-white mb-4">Комфорт и удобства для бизнес-путешественников.</p>
-                    </div>
-                    <!-- Maqola 2 -->
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-105">
-                        <img src="./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg" alt="">
-                        <h3 class="text-xl font-semibold text-white mb-2">Узбекистан и гостиничный бизнес</h3>
-                        <p class="text-white mb-4">Узбекистан – страна с богатым культурным наследием.</p>
-                    </div>
-                    <!-- Maqola 3 -->
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-105">
-                        <img src="./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg" alt="">
-                        <h3 class="text-xl font-semibold text-white mb-2">Почему стоит обращаться к консалтинговой компании?</h3>
-                        <p class="text-white mb-4">Каждый успешный бизнесмен это знает.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="max-w-8xl h-[590px] mx-auto px-4 bg-gray-800">
-            <h1 class="text-4xl font-bold text-center text-white">Наши Услуги</h1>
-            <h1 class="text-4xl font-bold mb-10 text-center text-white">__ __</h1>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 1. Управление -->
-                <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
-                    <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Управление</h3><br>
-                    <p class="text-gray-700 short">
-                        Компания Hotel Pro рассматривает предложения по управлению отелями, управлению гостиничными комплексами...
-                    </p>
-                    <p class="text-gray-700 hidden full">
-                        Компания Hotel Pro рассматривает предложения по управлению отелями, управлению гостиничными комплексами, 
-                        а также организации управления персоналом, оптимизации процессов и повышению качества обслуживания гостей.
-                    </p>
-                </div>
-                <!-- 2. Запуск и Про-Опеннинг -->
-                <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
-                    <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Запуск и Про-Опеннинг Отелей</h3><br>
-                    <p class="text-gray-700 short">
-                        Мы готовы подключиться к процессу как на этапе проектирования, так и на этапе запуска готовой гостиницы.
-                    </p>
-                    <p class="text-gray-700 hidden full">
-                        Мы готовы подключиться к процессу как на этапе проектирования, так и на этапе запуска готовой гостиницы. 
-                        Наша команда сопровождает открытие отеля, помогает с подбором персонала, разработкой процедур и стандартов.
-                    </p>
-                </div>
-                <!-- 3. Исследование Рынка -->
-                <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
-                    <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Исследование Гостиничного Рынка</h3><br>
-                    <p class="text-gray-700 short">
-                        Компания Hotel Pro предлагает услуги по анализу рынка гостиничной недвижимости и обзору показателей...
-                    </p>
-                    <p class="text-gray-700 hidden full">
-                        Компания Hotel Pro предлагает услуги по анализу рынка гостиничной недвижимости, обзору ключевых показателей, 
-                        конкурентной среды, тенденций и стратегических возможностей для развития бизнеса.
-                    </p>
-                </div>
-                <!-- 4. Аудит Отеля -->
-                <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
-                    <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Аудит Отеля</h3><br>
-                    <p class="text-gray-700 short">
-                        Наша компания предлагает профессиональный аудит гостиниц и отдельных служб гостиничного комплекса.
-                    </p>
-                    <p class="text-gray-700 hidden full">
-                        Наша компания проводит полную проверку процессов, финансовых показателей, обслуживания гостей и качества услуг, 
-                        предоставляя рекомендации по улучшению работы и увеличению прибыли.
-                    </p>
-                </div>
-                <!-- 5. Продажи и Маркетинг -->
-                <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
-                    <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Продажи и Маркетинг</h3><br>
-                    <p class="text-gray-700 short">
-                        Компания Hotel Pro оказывает услуги по увеличению продаж гостиничных услуг и разработке стратегии маркетинга.
-                    </p>
-                    <p class="text-gray-700 hidden full">
-                        Мы разрабатываем маркетинговые кампании, стратегии продвижения, SEO и SMM решения, а также оптимизируем продажи 
-                        для повышения узнаваемости бренда и загрузки отеля.
-                    </p>
-                </div>
-                <!-- 6. Проектирование и Дизайн -->
-                <div class="bg-white shadow-lg rounded-2xl p-6 transition hover:shadow-xl hover:scale-105">
-                    <h3 class="text-2xl font-semibold mb-4 flex gap-6"><i class="fa-solid fa-money-bill-trend-up"></i>|  Проектирование и Дизайн</h3><br>
-                    <p class="text-gray-700 short">
-                        В спектр работ по дизайну отеля входят дизайнерские, архитектурные и другие разработки...
-                    </p>
-                    <p class="text-gray-700 hidden full">
-                        Мы создаём концепции интерьера и экстерьера, подбираем материалы и решения, которые отражают бренд отеля и 
-                        делают пребывание гостей комфортным и запоминающимся.
-                    </p>
-                </div>
-            </div>
-        </section>
-<section class="max-w-6xl mx-auto py-16 px-4">
-    <h2 class="text-3xl font-bold text-center">Почему Нужно Выбрать Нас</h2>
-    <h2 class="text-3xl font-bold mb-6 text-center">__ __</h2>
+        <!-- Rasmni ko'rish tugmasi -->
+        <div class="text-center mt-8">
+          <button
+            id="viewImageBtn"
+            class="bg-blue-600 hover:bg-gray-500 text-white font-semibold py-2 px-6 rounded-lg transition duration-300 hover:scale-105"
+          >
+            Rasmni ko'rish
+          </button>
+        </div>
+      </div>
 
-    <section class="max-w-6xl mx-auto py-16 px-4 grid md:grid-cols-2 gap-8">
-        <!-- О НАС qismi -->
-        <div>
+      <!-- Полезные статьи секцияси -->
+      <section id="maqolalar" class="py-12 bg-[#374151]">
+        <div class="container mx-auto px-4">
+          <h1 class="text-4xl font-bold text-center text-white mb-8">
+            Полезные статьи
+          </h1>
+          <h1 class="text-4xl font-bold text-center text-white mb-8 mt-[-33px]">
+            __ __
+          </h1>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Maqola 1 -->
+            <div
+              class="card-hover bg-gray-800 p-6 rounded-lg shadow-lg transition hover:scale-105"
+            >
+              <img
+                class="w-[432px] h-[300px] object-cover rounded-lg"
+                src="./d975c12ddf5fd22c.jpg"
+                alt=""
+              />
+              <div class="hover-panel flex flex-col">
+                <a class="text-lg font-semibold" href="#"
+                  >Подробнее о Husma Hotel & Spa</a
+                >
+                <br />
+                <a href="https://husmahotel.uz/">Узнать болше -></a>
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-2 mt-4">
+                Husma Hotel & Spa
+              </h3>
+              <p class="text-white mb-4">
+                Комфорт и удобства для бизнес-путешественников.
+              </p>
+            </div>
+
+            <div
+              class="card-hover bg-gray-800 p-6 rounded-lg shadow-lg transition hover:scale-105"
+            >
+              <img
+                class="w-[432px] h-[300px] object-cover rounded-lg"
+                src="."
+                alt=""
+              />
+              <div class="hover-panel">
+                <a class="text-lg font-semibold" href="#"
+                  >Узбекистан и гостиничный бизнес</a
+                >
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-2 mt-4">
+                Узбекистан и гостиничный бизнес
+              </h3>
+              <p class="text-white mb-4">
+                Узбекистан – страна с богатым культурным наследием.
+              </p>
+            </div>
+            <div
+              class="card-hover bg-gray-800 p-6 rounded-lg shadow-lg transition hover:scale-105"
+            >
+              <img
+                class="w-[432px] h-[300px] object-cover rounded-lg"
+                src="./ChatGPT Image 9 окт. 2025 г., 17_49_47.png"
+                alt=""
+              />
+              <div class="hover-panel">
+                <p></p>
+                <a class="text-lg font-semibold" href="#"
+                  >Почему стоит обращаться к консалтингу?</a
+                >
+              </div>
+              <h3 class="text-xl font-semibold text-white mb-2 mt-4">
+                Почему стоит обращаться к консалтинговой компании?
+              </h3>
+              <p class="text-white mb-4">
+                Каждый успешный бизнесмен это знает.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="max-w-8xl mx-auto px-4 py-12 bg-gray-800">
+        <h1 class="text-4xl font-bold text-center text-white">Наши Услуги</h1>
+        <h1 class="text-4xl font-bold text-center text-white mb-10">__ __</h1>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Xizmat 1 -->
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">
+                Узнайте больше о нашем аудите!
+              </p>
+            </div>
+            <i
+              class="fa-solid fa-magnifying-glass-chart text-4xl text-blue-400 mb-4"
+            ></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">
+              Консалтинг и аудит гостиниц
+            </h3>
+            <p class="short text-gray-300 mb-4">
+              Анализ работы вашего отеля и рекомендации по улучшению
+              эффективности.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Мы проводим глубокий анализ операционной деятельности вашего
+              отеля, выявляем слабые места и предлагаем конкретные решения для
+              повышения эффективности, оптимизации затрат и улучшения качества
+              обслуживания.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+
+          <!-- Xizmat 2 -->
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">Создадим стратегию успеха!</p>
+            </div>
+            <i class="fa-solid fa-chart-line text-4xl text-blue-400 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">
+              Разработка бизнес-стратегий
+            </h3>
+            <p class="short text-gray-300 mb-4">
+              Создание индивидуальных стратегий для роста и процветания вашего
+              бизнеса.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Мы создаем персонализированные бизнес-стратегии, включающие анализ
+              рынка, определение целевой аудитории и разработку плана для
+              увеличения доходов и конкурентоспособности вашего отеля.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+
+          <!-- Xizmat 3 -->
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">Повышение уровня сервиса!</p>
+            </div>
+            <i class="fa-solid fa-users-gear text-4xl text-blue-400 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">
+              Управление персоналом и обучение
+            </h3>
+            <p class="short text-gray-300 mb-4">
+              Обучение команды и оптимизация работы персонала для улучшения
+              сервиса.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Наши программы обучения помогут вашему персоналу освоить
+              международные стандарты гостеприимства, улучшить навыki общения с
+              клиентами и оптимизировать внутренние процессы.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+
+          <!-- Xizmat 4 -->
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">
+                Уникальный дизайн вашего отеля!
+              </p>
+            </div>
+            <i class="fa-solid fa-pencil-ruler text-4xl text-blue-400 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">
+              Дизайн и оформление интерьера
+            </h3>
+            <p class="short text-gray-300 mb-4">
+              Создание привлекательного и функционального интерьера для вашего
+              отеля.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Мы сотрудничаем с ведущими дизайнерами для создания уникальных
+              интерьеров, сочетающих эстетику и функциональность, обеспечивая
+              комфорт для гостей.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+
+          <!-- Xizmat 5 -->
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">
+                Увеличьте узнаваемость бренда!
+              </p>
+            </div>
+            <i class="fa-solid fa-bullhorn text-4xl text-blue-400 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">
+              Продвижение и маркетинг отеля
+            </h3>
+            <p class="short text-gray-300 mb-4">
+              Разработка маркетинговых кампаний и повышение узнаваемости бренда.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Мы разрабатываем эффективные маркетинговые кампании, включая
+              digital-маркетинг и PR, чтобы привлечь больше гостей и повысить
+              узнаваемость вашего бренда.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+
+          <!-- Xizmat 6 -->
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">Успешный старт вашего отеля!</p>
+            </div>
+            <i class="fa-solid fa-building text-4xl text-blue-400 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">
+              Запуск и пре-опенинг отелей
+            </h3>
+            <p class="short text-gray-300 mb-4">
+              Поддержка на всех этапах открытия нового отеля.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Мы предоставляем комплексную поддержку на этапах проектирования,
+              строительства и запуска отеля, включая подбор персонала и
+              настройку процессов.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+
+          <!-- Yangi 3 xizmat kartalari -->
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">Оптимизация процессов отеля</p>
+            </div>
+            <i class="fa-solid fa-gears text-4xl text-blue-400 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">
+              Процесс-менеджмент
+            </h3>
+            <p class="short text-gray-300 mb-4">
+              Мы помогаем оптимизировать внутренние процессы для повышения
+              эффективности.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Анализируем все рабочие процессы отеля, выявляем узкие места и
+              внедряем решения для снижения затрат и увеличения
+              производительности.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">Создаем комфорт для гостей</p>
+            </div>
+            <i class="fa-solid fa-bed text-4xl text-blue-400 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">Гостевой опыт</h3>
+            <p class="short text-gray-300 mb-4">
+              Разработка уникального опыта для каждого гостя вашего отеля.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Помогаем формировать индивидуальные предложения и сервисы, чтобы
+              каждый гость чувствовал себя особенным и хотел возвращаться снова.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+
+          <div
+            class="card-hover service-card bg-gray-800 p-6 rounded-xl shadow-lg relative border-white border-4"
+          >
+            <div class="hover-panel">
+              <p class="text-lg font-semibold">Эффективная работа с отзывами</p>
+            </div>
+            <i class="fa-solid fa-comments text-4xl text-blue-400 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-3 text-white">
+              Репутационный менеджмент
+            </h3>
+            <p class="short text-gray-300 mb-4">
+              Помогаем управлять отзывами и поддерживать положительный имидж
+              отеля.
+            </p>
+            <p class="full text-gray-300 mb-4 hidden">
+              Мы обучаем команды работать с отзывами, реагировать на жалoby и
+              поддерживать высокий уровень лояльности гостей.
+            </p>
+            <button
+              class="more-btn text-blue-400 font-semibold hover:underline"
+            >
+              Подробнее
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- JavaScript: click bilan ochish/ yopish -->
+      <script>
+        document.querySelectorAll(".service-card").forEach((card) => {
+          const shortEl = card.querySelector(".short");
+          const fullEl = card.querySelector(".full");
+          const btn = card.querySelector(".more-btn");
+
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            const isOpen = card.dataset.open === "true";
+            if (!isOpen) {
+              if (shortEl) shortEl.classList.add("hidden");
+              if (fullEl) fullEl.classList.remove("hidden");
+              btn.textContent = "Скрыть";
+              card.dataset.open = "true";
+            } else {
+              if (shortEl) shortEl.classList.remove("hidden");
+              if (fullEl) fullEl.classList.add("hidden");
+              btn.textContent = "Подробнее";
+              delete card.dataset.open;
+            }
+          });
+        });
+      </script>
+
+      <section class="max-w-8xl mx-auto py-16 px-4 bg-[#374151] text-white">
+        <h2 class="text-3xl font-bold text-center">Почему Нужно Выбрать Нас</h2>
+        <h2 class="text-3xl font-bold mb-6 text-center">__ __</h2>
+
+        <section class="max-w-6xl mx-auto py-16 px-4 grid md:grid-cols-2 gap-8">
+          <!-- О НАС qismi -->
+          <div>
             <h2 class="text-3xl font-bold mb-4">О нас</h2>
-            <p class="text-gray-700 mb-4">
-                Консультационные услуги HotelPro для гостиничного бизнеса.
+            <p class="text-white mb-4">
+              Консультационные услуги HospitalityPro для гостиничного бизнеса.
             </p>
-            <p class="text-gray-700 mb-4">
-                Основным направлением деятельности HotelPro является консультирование по гостиничному бизнесу.
+            <p class="text-white mb-4">
+              Основным направлением деятельности HospitalityPro является
+              консультирование по гостиничному бизнесу.
             </p>
-            <div class="mt-6">
+            <div class="mt-6 flex gap-6">
+              <img
+                class="w-[50px] h-[50px] rounded-full"
+                src="./photo_2025-10-09_20-46-15.jpg"
+                alt=""
+              />
+              <div class="">
                 <h3 class="font-semibold">Haydarov Sirojiddin</h3>
-                <p class="text-sm text-gray-600">CEO & Founder</p>
+                <p class="text-sm text-white">CEO & Founder</p>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- Tugmalar + kontent -->
-        <div>
+          <!-- Tugmalar + kontent -->
+          <div class="text-white">
             <h2 class="text-3xl font-bold mb-6">Почему Нужно Выбрать Нас</h2>
 
             <!-- Tugmalar -->
-            <div class="flex border rounded-lg overflow-hidden mb-6" id="tab-buttons">
-                <button class="tab-btn flex-1 py-3 font-semibold bg-gray-800 text-white hover:scale-105 transition" data-tab="1">Опыт</button>
-                <button class="tab-btn flex-1 py-3 font-semibold bg-white text-gray-800 hover:scale-105 transition" data-tab="2">Сильная команда</button>
-                <button class="tab-btn flex-1 py-3 font-semibold bg-white text-gray-800 hover:scale-105 transition" data-tab="3">Путь к брендам</button>
+            <div
+              class="flex border rounded-lg overflow-hidden mb-6"
+              id="tab-buttons"
+            >
+              <button
+                class="tab-btn flex-1 py-3 font-semibold bg-gray-800 text-white hover:scale-105 transition"
+                data-tab="1"
+              >
+                Опыт
+              </button>
+              <button
+                class="tab-btn flex-1 py-3 font-semibold bg-white text-gray-800 hover:scale-105 transition"
+                data-tab="2"
+              >
+                Сильная команда
+              </button>
+              <button
+                class="tab-btn flex-1 py-3 font-semibold bg-white text-gray-800 hover:scale-105 transition"
+                data-tab="3"
+              >
+                Путь к брендам
+              </button>
             </div>
 
             <!-- Kontentlar -->
-            <div id="tab-content" class="text-gray-700 text-lg leading-relaxed">
-                Команда Hotel Pro — первая консалтинговая компания, которая обслужила более 60 отелей в процессах строительства, управления, звезд и франчайзинга.
+            <div id="tab-content" class="text-white text-lg leading-relaxed">
+              Команда Hospitality Pro — первая консалтинговая компания, которая
+              обслужила более 20+ отелей в процессах строительства, управления,
+              звезд и франчайзинга.
             </div>
-        </div>
-    </section>
-</section>
-
-<!-- ✅ JavaScript -->
-<script>
-    const buttons = document.querySelectorAll('.tab-btn');
-    const content = document.getElementById('tab-content');
-
-    const texts = {
-        1: "Команда Hotel Pro — первая консалтинговая компания, которая обслужила более 60 отелей в процессах строительства, управления, звезд и франчайзинга.",
-        2: "Наша команда состоит из экспертов с многолетним опытом в гостиничном бизнесе, управлении и развитии брендов.",
-        3: "Hotel Pro помогает гостиницам получить международные бренды и строить путь к высокому уровню обслуживания."
-    };
-
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            // 🔁 Barcha tugmalarni reset qilish
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-gray-800', 'text-white');
-                btn.classList.add('bg-white', 'text-gray-800');
-            });
-
-            // 🔘 Faol tugmaga class qo‘shish
-            button.classList.remove('bg-white', 'text-gray-800');
-            button.classList.add('bg-gray-800', 'text-white');
-
-            // 📄 Kontentni almashtirish
-            const tabId = button.getAttribute('data-tab');
-            content.innerText = texts[tabId];
-        });
-    });
-    </script>
-        <section class="w-full h-[350px] bg-gray-800 flex justify-center items-center gap-6">
-            <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800 hover:scale-105">
-                <h1 class="text-5xl font-bold">25+</h1>
-                <h2 class="text-xl">Построеных отелей</h2>
-            </div>
-            <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
-                <h1 class="text-5xl font-bold">40+</h1>
-                <h2 class="text-xl">Лет командного опыта</h2>
-            </div>
-            <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
-                <h1 class="text-5xl font-bold">260+</h1>
-                <h2 class="text-xl text-center">Cотрудников под управление</h2>
-            </div>
-            <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
-                <h1 class="text-5xl font-bold">25+</h1>
-                <h2 class="text-xl">Построеных отелей</h2>
-            </div>
-            <div class="w-[270px] h-[170px] bg-white rounded-2xl flex flex-col items-center justify-center gap-6 text-gray-800">
-                <h1 class="text-5xl font-bold">25+</h1>
-                <h2 class="text-xl">Построеных отелей</h2>
-            </div>
+          </div>
         </section>
-<section class="max-w-8xl mx-auto flex flex-col px-4 h-[550px] bg-white justify-center gap-6 items-center">
-    <div class="flex justify-center items-center gap-[920px]">
-        <div>
-            <h1 class="text-4xl font-bold text-center text-gray-800">Наши проекты</h1>
-            <h1 class="text-4xl font-bold mb-10 text-center text-gray-800">__ __</h1>
+      </section>
+
+      <!-- ✅ JavaScript -->
+      <script>
+        const buttons = document.querySelectorAll(".tab-btn");
+        const content = document.getElementById("tab-content");
+
+        const texts = {
+          1: "Команда Hospitality Pro — первая консалтинговая компания, которая обслужила более 20+ отелей в процессах строительства, управления, звезд и франчайзинга.",
+          2: "Наша команда состоит из экспертов с многолетним опытом в гостиничном бизнесе, управлении и развитии брендов.",
+          3: "Hospitality Pro помогает гостиницам получить международные бренды и строить путь к высокому уровню обслуживания.",
+        };
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            buttons.forEach((btn) => {
+              btn.classList.remove("bg-gray-800", "text-white");
+              btn.classList.add("bg-white", "text-gray-800");
+            });
+
+            button.classList.remove("bg-white", "text-gray-800");
+            button.classList.add("bg-gray-800", "text-white");
+
+            const tabId = button.getAttribute("data-tab");
+            content.innerText = texts[tabId];
+          });
+        });
+      </script>
+      <section
+        class="max-w-8xl mx-auto flex flex-col px-4 h-[550px] bg-gray-800 justify-center gap-6 items-center"
+      >
+        <div class="flex justify-center items-center gap-[920px]">
+          <div>
+            <h1 class="text-4xl font-bold text-center text-white">
+              Наши проекты
+            </h1>
+            <h1 class="text-4xl font-bold mb-10 text-center text-white">
+              __ __
+            </h1>
+          </div>
+          <div>
+            <a
+              href="./проекты.html"
+              class="w-[200px] h-[60px] border-4 border-white text-white text-3xl flex items-center justify-center hover:scale-105"
+              >Все проекты</a
+            >
+          </div>
         </div>
-        <div>
-            <a href="#" class="w-[200px] h-[60px] border-4 border-gray-800 text-3xl flex items-center justify-center">Все проекты</a>
-        </div>
-    </div>
-    <div class="flex gap-8">
-        <!-- Har bir rasm konteyneri -->
-        <div class="relative group w-[320px] h-[320px] border-4 border-transparent hover:border-gray-800 transition-all duration-300">
-            <img class="w-full h-full object-cover" src="./0222n12000a908k4g8D03_R_960_660_R5_D.jpg" alt="">
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                <p class="text-white text-xl font-semibold">Loyiha nomi</p>
+        <div class="flex gap-8">
+          <!-- Har bir rasm konteyneri -->
+          <div
+            class="relative group w-[320px] h-[320px] border-4 border-transparent hover:border-gray-800 transition-all duration-300 hover:scale-105"
+          >
+            <img
+              class="w-full h-full object-cover"
+              src="./d975c12ddf5fd22c.jpg"
+              alt=""
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+            >
+              <p class="text-white text-xl font-semibold">Husma Hotel & Spa</p>
             </div>
+          </div>
+
+          <div
+            class="relative group w-[320px] h-[320px] border-4 border-transparent hover:border-gray-800 transition-all duration-300 hover:scale-105"
+          >
+            <img
+              class="w-full h-full object-cover"
+              src="./content_hotel_63276200723b45.84605093.jpeg"
+              alt=""
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+            >
+              <p class="text-white text-xl font-semibold">
+                Hotel Inspira-S Tashkent
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="relative group w-[320px] h-[320px] border-4 border-transparent hover:border-gray-800 transition-all duration-300 hover:scale-105"
+          >
+            <img
+              class="w-full h-full object-cover"
+              src="./b6fa55c94cd17cfadc48bbffc4e6cc5f14d56d16.jpg"
+              alt=""
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+            >
+              <p class="text-white text-xl font-semibold">Hotel Caravan</p>
+            </div>
+          </div>
+
+          <div
+            class="relative group w-[320px] h-[320px] border-4 border-transparent hover:border-gray-800 transition-all duration-300 hover:scale-105"
+          >
+            <img
+              class="w-full h-full object-cover"
+              src="./519521149b771976143bfa423be5aa17.jpg"
+              alt=""
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+            >
+              <p class="text-white text-xl font-semibold">
+                Boutique Hotel Profi Inn
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="max-w-8xl mx-auto flex flex-col px-4 h-[700px] justify-center gap-6 items-center bg-[#374151]"
+      >
+        <div class="flex justify-center items-center gap-[920px]">
+          <div>
+            <h1 class="text-4xl font-bold text-center text-white">
+              Наш команда
+            </h1>
+            <h1 class="text-4xl font-bold mb-10 text-center text-white">
+              __ __
+            </h1>
+          </div>
+        </div>
+      <section
+        class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+      >
+        <div class="card-hover bg-gray-800 p-6 rounded-xl shadow-lg">
+          <img
+            class="w-full h-64 object-cover rounded-lg"
+            src="./photo_2025-10-09_20-46-15.jpg"
+            alt="Haydarov Sirojiddin"
+          />
+          <div class="hover-panel">
+            <p class="text-lg font-semibold px-4 text-center">
+              CEO & Founder: Haydarov Sirojiddin
+            </p>
+          </div>
+          <h3 class="text-xl text-white mt-4 font-semibold">
+            Haydarov Sirojiddin
+          </h3>
+          <p class="text-gray-300">
+            Опытный консультант по гостиничному бизнесу с более чем 20+ годами
+            опыта.
+          </p>
         </div>
 
-        <!-- Takrorlangan rasmlar -->
-        <div class="relative group w-[320px] h-[320px] border-4 border-transparent hover:border-gray-800 transition-all duration-300">
-            <img class="w-full h-full object-cover" src="./0222n12000a908k4g8D03_R_960_660_R5_D.jpg" alt="">
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                <p class="text-white text-xl font-semibold">Loyiha nomi</p>
-            </div>
+        <div class="card-hover bg-gray-800 p-6 rounded-xl shadow-lg">
+          <img
+            class="w-full h-64 object-cover rounded-lg"
+            src="./photo_2025-10-08_13-56-54.jpg"
+            alt="Chef"
+          />
+          <div class="hover-panel">
+            <p class="text-lg font-semibold px-4 text-center">
+              Наш шеф-повар и эксперт по гостеприимству
+            </p>
+          </div>
+          <h3 class="text-xl text-white mt-4 font-semibold">Главный шеф</h3>
+          <p class="text-gray-300">
+            Специалист по кулинарии и созданию незабываемого опыта для гостей.
+          </p>
         </div>
 
-        <div class="relative group w-[320px] h-[320px] border-4 border-transparent hover:border-gray-800 transition-all duration-300">
-            <img class="w-full h-full object-cover" src="./0222n12000a908k4g8D03_R_960_660_R5_D.jpg" alt="">
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                <p class="text-white text-xl font-semibold">Loyiha nomi</p>
-            </div>
+        <div class="card-hover bg-gray-800 p-6 rounded-xl shadow-lg">
+          <img
+            class="w-full h-64 object-cover rounded-lg"
+            src="."
+            alt="Marketing Specialist"
+          />
+          <div class="hover-panel">
+            <p class="text-lg font-semibold px-4 text-center">
+              Эксперт по маркетингу и брендингу
+            </p>
+          </div>
+          <h3 class="text-xl text-white mt-4 font-semibold">Маркетолог</h3>
+          <p class="text-gray-300">
+            Создает эффективные стратегии продвижения для отелей и курorтов.
+          </p>
         </div>
-
-        <div class="relative group w-[320px] h-[320px] border-4 border-transparent hover:border-gray-800 transition-all duration-300">
-            <img class="w-full h-full object-cover" src="./0222n12000a908k4g8D03_R_960_660_R5_D.jpg" alt="">
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                <p class="text-white text-xl font-semibold">Loyiha nomi</p>
-            </div>
-        </div>
-    </div>
-</section>
-
+      </section>
+      </section>
     </main>
-
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img id="modalImage" class="modal-content" src="https://via.placeholder.com/1200x800?text=Birinchi+Rasm">
-        <button class="next-btn" onclick="nextImage()">></button>
+    <!-- <footer> -->
+    <div class="bg-gray-800 text-white p-6">
+      <div class="container mx-auto grid grid-cols-3 gap-6">
+        <div>
+          <h2 class="text-4xl font-bold mb-4">О нас</h2>
+          <p class="text-gray-400">
+            Консультационные услуги HospitalityPro для гостиничного бизнеса
+          </p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold mb-2">Полезные ссылки</h3>
+          <ul class="text-gray-400 space-y-2">
+            <li><a href="#" class="hover:text-white">Главная</a></li>
+            <li><a href="#" class="hover:text-white">О нас</a></li>
+            <li><a href="#" class="hover:text-white">Услуги</a></li>
+            <li><a href="#" class="hover:text-white">Проекты</a></li>
+            <li><a href="#" class="hover:text-white">Статьи</a></li>
+            <li><a href="#" class="hover:text-white">Свяжитесь с нами</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold mb-2">Пишите на нас</h3>
+          <p class="text-gray-400">Следите за нами в социальных сетях</p>
+          <div class="flex space-x-4 mt-2">
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fa-brands fa-telegram"></i
+            ></a>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <div id="myModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img id="modalImage" class="modal-content" src="" />
+      <button class="next-btn" onclick="nextImage()">></button>
+    </div>
     <script>
-        (function() {
-            const slidesWrap = document.getElementById('slides');
-            const slides = Array.from(slidesWrap.querySelectorAll('.slide'));
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const dots = Array.from(document.querySelectorAll('#dots button'));
-            const total = slides.length;
-            let index = 0;
-            let isAnimating = false;
+      (function () {
+        const slidesWrap = document.getElementById("slides");
+        const slides = Array.from(slidesWrap.querySelectorAll(".slide"));
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const dots = Array.from(document.querySelectorAll("#dots button"));
+        const total = slides.length;
+        let index = 0;
+        let isAnimating = false;
 
-            function updatePosition(animate = true) {
-                const x = -index * 100;
-                if (!animate) slidesWrap.style.transition = 'none';
-                else slidesWrap.style.transition = 'transform 800ms cubic-bezier(0.4, 0, 0.2, 1)';
-                slidesWrap.style.transform = `translateX(${x}vw)`;
+        function updatePosition(animate = true) {
+          const x = -index * 100;
+          if (!animate) slidesWrap.style.transition = "none";
+          else
+            slidesWrap.style.transition =
+              "transform 800ms cubic-bezier(0.4, 0, 0.2, 1)";
+          slidesWrap.style.transform = `translateX(${x}vw)`;
 
-                dots.forEach((d, i) => {
-                    d.classList.toggle('bg-white/90', i === index);
-                    d.classList.toggle('bg-white/50', i !== index);
-                });
+          dots.forEach((d, i) => {
+            d.classList.toggle("bg-white/90", i === index);
+            d.classList.toggle("bg-white/50", i !== index);
+          });
 
-                if (!animate) {
-                    requestAnimationFrame(() => {
-                        slidesWrap.style.transition = '';
-                    });
-                }
-            }
-            function goTo(nextIndex) {
-                if (isAnimating) return;
-                isAnimating = true;
-                // Ensure single slide movement
-                nextIndex = ((nextIndex % total) + total) % total; // Normalize index
-                if (nextIndex !== index) {
-                    index = nextIndex;
-                    updatePosition(true);
-                }
-                setTimeout(() => { isAnimating = false; }, 820);
-            }
-
-            prevBtn.addEventListener('click', () => goTo(index - 1));
-            nextBtn.addEventListener('click', () => goTo(index + 1));
-
-            dots.forEach(d => {
-                d.addEventListener('click', () => {
-                    const dotIndex = Number(d.dataset.dot);
-                    goTo(dotIndex);
-                });
+          if (!animate) {
+            requestAnimationFrame(() => {
+              slidesWrap.style.transition = "";
             });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') goTo(index - 1);
-                if (e.key === 'ArrowRight') goTo(index + 1);
-            });
-
-            let startX = null;
-            slidesWrap.addEventListener('touchstart', e => {
-                startX = e.touches[0].clientX;
-            }, { passive: true });
-            slidesWrap.addEventListener('touchend', e => {
-                if (startX === null) return;
-                const endX = e.changedTouches[0].clientX;
-                const diff = endX - startX;
-                if (Math.abs(diff) > 40) {
-                    if (diff > 0) goTo(index - 1);
-                    else goTo(index + 1);
-                }
-                startX = null;
-            });
-
-            // Automatic slide transition every 5 seconds
-            let autoSlide = setInterval(() => {
-                goTo(index + 1);
-            }, 5000);
-
-            // Pause auto-slide on hover
-            const slider = document.getElementById('slider');
-            slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
-            slider.addEventListener('mouseleave', () => {
-                autoSlide = setInterval(() => goTo(index + 1), 5000);
-            });
-
-            updatePosition(false);
-        })();
-
-        // Modal logic
-        let currentImageIndex = 0;
-        const images = [
-            "./d975c12ddf5fd22c_LE_upscale_balanced_x4.jpg",
-            "./AKRA_HOTEL_GENERAL_VIEW_3_1_11zon_vgcrhx.jpg",
-            "https://via.placeholder.com/1200x800?text=Rasm+3"
-        ];
-
-        function openModal() {
-            document.getElementById('myModal').style.display = 'block';
-            document.getElementById('modalImage').src = images[currentImageIndex];
+          }
+        }
+        function goTo(nextIndex) {
+          if (isAnimating) return;
+          isAnimating = true;
+          nextIndex = ((nextIndex % total) + total) % total;
+          if (nextIndex !== index) {
+            index = nextIndex;
+            updatePosition(true);
+          }
+          setTimeout(() => {
+            isAnimating = false;
+          }, 820);
         }
 
-        document.getElementById('viewImageBtn').onclick = openModal;
+        prevBtn.addEventListener("click", () => goTo(index - 1));
+        nextBtn.addEventListener("click", () => goTo(index + 1));
 
-        function nextImage() {
-            currentImageIndex = (currentImageIndex + 1) % images.length;
-            document.getElementById('modalImage').src = images[currentImageIndex];
+        dots.forEach((d) => {
+          d.addEventListener("click", () => {
+            const dotIndex = Number(d.dataset.dot);
+            goTo(dotIndex);
+          });
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowLeft") goTo(index - 1);
+          if (e.key === "ArrowRight") goTo(index + 1);
+        });
+
+        let startX = null;
+        slidesWrap.addEventListener(
+          "touchstart",
+          (e) => {
+            startX = e.touches[0].clientX;
+          },
+          { passive: true }
+        );
+        slidesWrap.addEventListener("touchend", (e) => {
+          if (startX === null) return;
+          const endX = e.changedTouches[0].clientX;
+          const diff = endX - startX;
+          if (Math.abs(diff) > 40) {
+            if (diff > 0) goTo(index - 1);
+            else goTo(index + 1);
+          }
+          startX = null;
+        });
+
+        let autoSlide = setInterval(() => {
+          goTo(index + 1);
+        }, 3000);
+
+        const slider = document.getElementById("slider");
+        slider.addEventListener("mouseenter", () => clearInterval(autoSlide));
+        slider.addEventListener("mouseleave", () => {
+          autoSlide = setInterval(() => goTo(index + 1), 3000);
+        });
+
+        updatePosition(false);
+      })();
+
+      let currentImageIndex = 0;
+      const images = [
+        "./The Lush and Luxurious Sanya EDITION on Hainan Island.jpg",
+        "./e630db9e931df9ea09a6090cf5dbfa89.jpg",
+        "./AKRA_HOTEL_GENERAL_VIEW_3_1_11zon_vgcrhx.jpg",
+      ];
+
+      function openModal() {
+        document.getElementById("myModal").style.display = "block";
+        document.getElementById("modalImage").src = images[currentImageIndex];
+      }
+
+      document.getElementById("viewImageBtn").onclick = openModal;
+
+      function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        document.getElementById("modalImage").src = images[currentImageIndex];
+      }
+
+      function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
         }
+      };
 
-        function closeModal() {
-            document.getElementById('myModal').style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById('myModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        // Vaqtni yangilash funksiyasi
+      document.addEventListener("DOMContentLoaded", function () {
         function updateTime() {
-            const now = new Date();
-            const options = {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true,
-                timeZone: 'Asia/Tashkent',
-                timeZoneName: 'short'
-            };
-            const timeString = now.toLocaleTimeString('en-US', options).replace('AM', 'AM +05').replace('PM', 'PM +05');
-            const day = now.toLocaleDateString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
-            document.getElementById('current-time').textContent = `${timeString} on ${day}`;
+          const now = new Date();
+          const options = {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+            timeZone: "Asia/Tashkent",
+            timeZoneName: "short",
+          };
+          const timeString = now
+            .toLocaleTimeString("en-US", options)
+            .replace("AM", "AM +05")
+            .replace("PM", "PM +05");
+
+          const day = now.toLocaleDateString("ru-RU", {
+            weekday: "long",
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+          });
+
+          document.getElementById(
+            "current-time"
+          ).textContent = `${timeString} on ${day}`;
         }
+
         setInterval(updateTime, 1000);
         updateTime();
+      });
 
-        document.querySelectorAll(".read-more").forEach(button => {
-            button.addEventListener("click", () => {
-                const card = button.parentElement;
-                const shortText = card.querySelector(".short");
-                const fullText = card.querySelector(".full");
-                
-                shortText.classList.toggle("hidden");
-                fullText.classList.toggle("hidden");
-                
-                button.textContent = fullText.classList.contains("hidden")
-                    ? "Читать Далее ›"
-                    : "Скрыть ▲";
-            });
+      document.querySelectorAll(".read-more").forEach((button) => {
+        button.addEventListener("click", () => {
+          const card = button.parentElement;
+          const shortText = card.querySelector(".short");
+          const fullText = card.querySelector(".full");
+
+          shortText.classList.toggle("hidden");
+          fullText.classList.toggle("hidden");
+
+          button.textContent = fullText.classList.contains("hidden")
+            ? "Читать Далее ›"
+            : "Скрыть ▲";
         });
+      });
     </script>
-
-    <!-- Footer -->
-    <footer id="aloqa" class="bg-gray-800 text-white py-6 px-6 md:px-12 mt-12">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 HotelPro. Barcha huquqlar himoyalangan. <a href="tel:+998781138330" class="hover:text-blue-300">+998 78 113 83 30</a> | <span id="current-time"></span></p>
-        </div>
+    <footer id="aloqa" class="bg-gray-800 text-white py-8 px-8 md:px-12">
+      <div class="container mx-auto text-center">
+        <p>
+          &copy; 2025 HospitalityPro. Все права защищены.<a
+            href="tel:+998911638338"
+            class="hover:text-blue-300"
+            >+998 91 163 83 38</a
+          >
+          | <span id="current-time"></span>
+        </p>
+      </div>
     </footer>
-</body>
+  </body>
 </html>
