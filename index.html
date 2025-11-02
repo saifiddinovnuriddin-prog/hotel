@@ -226,14 +226,16 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
       <!-- 1 -->
-      <div class="card-hover bg-gray-800 p-6 rounded-lg shadow-lg transition hover:scale-105 relative overflow-hidden group">
-        <img class="w-[432px] h-[300px] object-cover rounded-lg" src="./d975c12ddf5fd22c.jpg" alt="">
-        <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-          <a class="text-white text-lg font-semibold" href="https://husmahotel.uz/">Подробнее о Husma Hotel & Spa →</a>
-        </div>
-        <h3 class="text-xl font-semibold text-white mb-2 mt-4">Husma Hotel & Spa</h3>
-        <p class="text-white mb-4">Комфорт и удобства для бизнес-путешественников.</p>
-      </div>
+<div class="card-hover bg-gray-800 p-6 rounded-lg shadow-lg transition hover:scale-105 relative overflow-hidden group">
+  <img class="w-[432px] h-[300px] object-cover rounded-lg" src="./d975c12ddf5fd22c.jpg" alt="">
+  <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition">
+    <button data-modal="modal3" class="openModal bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">
+      Читать подробнее
+    </button>
+  </div>
+  <h3 class="text-xl font-semibold text-white mb-2 mt-4">Как открыть успешный отель</h3>
+  <p class="text-white mb-4">Пошаговое руководство для начинающих предпринимателей.</p>
+</div>
 
       <!-- 2 — Узбекистан -->
       <div class="card-hover bg-gray-800 p-6 rounded-lg shadow-lg transition hover:scale-105 relative overflow-hidden group">
@@ -294,6 +296,26 @@
     </p>
     <p class="mt-3 text-gray-700">
       Всё это делает Узбекистан привлекательным направлением для инвестиций в гостиничный сектор и создаёт новые возможности для бизнеса.
+    </p>
+  </div>
+</div>
+    <!-- MODAL 3 -->
+<div id="modal3" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-white max-w-lg mx-4 p-6 rounded-2xl relative shadow-2xl">
+    <button class="closeModal absolute top-3 right-4 text-gray-600 hover:text-gray-900 text-2xl">&times;</button>
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Как открыть успешный отель</h2>
+    <p class="text-gray-700 leading-relaxed">
+      Открытие собственного отеля — это увлекательный, но ответственный процесс. Для того чтобы бизнес стал прибыльным, важно тщательно продумать каждый шаг: от выбора локации до уровня сервиса.
+    </p>
+    <ul class="list-disc list-inside text-gray-700 mt-3">
+      <li><strong>Исследуйте рынок:</strong> изучите спрос, конкурентов и целевую аудиторию.</li>
+      <li><strong>Выберите концепцию:</strong> бутик-отель, семейный, бизнес или курортный формат.</li>
+      <li><strong>Продумайте дизайн и удобства:</strong> комфорт, стиль и атмосфера — ключ к успеху.</li>
+      <li><strong>Найдите надёжных партнёров:</strong> подрядчиков, поставщиков и обученный персонал.</li>
+      <li><strong>Маркетинг и онлайн-присутствие:</strong> создайте сайт, подключите систему бронирования и продвигайте бренд.</li>
+    </ul>
+    <p class="mt-3 text-gray-700">
+      Правильная стратегия, качественный сервис и внимание к деталям помогут вам построить успешный гостиничный бизнес и привлечь постоянных клиентов.
     </p>
   </div>
 </div>
