@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HospitalityPro - Спортивные турниры</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <meta name="theme-color" content="#1e293b">
+
+  <style>
+    body { background-color: #374151; }
+
+    .team-card { transition: all .3s ease; position: relative; overflow: hidden; }
+    .team-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(59,130,246,.3); }
+    .nav-link:hover { color:#60a5fa; transform:translateY(-4px); }
+
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #3b82f6, #1e3a8a);
+      width: 0;
+      transition: width 1s ease-in-out;
+      border-radius: 4px;
+    }
+
+    .card-hover { position:relative; overflow:hidden; transition:transform 0.4s ease, box-shadow 0.4s ease; }
+    .card-hover:hover { transform:translateY(-8px); box-shadow:0 12px 24px rgba(0,0,0,0.3); }
+    .hover-panel { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(37,99,235,.9); color:white; display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(0.9); transition:opacity 0.4s, transform 0.4s; text-align:center; padding:1rem; }
+    .card-hover:hover .hover-panel { opacity:1; transform:scale(1); }
+  </style>
+</head>
+
+<body class="bg-[#374151] text-white">
+
+  <!-- HEADER -->
+  <header class="bg-gray-800 text-white py-6 px-6 md:px-12 shadow-lg fixed top-0 left-0 w-full z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-4">
+        <img class="w-16 h-16 rounded-full transition-transform duration-300 hover:rotate-12"
+             src="./hospitality pro profil_pixian_ai.png" alt="Логотип"/>
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight hover:scale-105 transition">
+            Hospitality <br><span class="text-blue-400">Pro</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex flex-col items-end gap-2">
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fa-brands fa-telegram"></i></a>
+        </div>
+        <nav class="flex space-x-8">
+          <a href="./index.html" class="nav-link font-bold text-lg">Главная</a>
+          <a href="./онас.html" class="nav-link font-bold text-lg">О нас</a>
+          <a href="./услуги.html" class="nav-link font-bold text-lg">Услуги</a>
+          <a href="./проекты.html" class="nav-link font-bold text-lg">Проекты</a>
+          <a href="./kontakt.html" class="nav-link font-bold text-lg">Контакты</a>
+          <a href="./team.html" class="nav-link font-bold text-lg">Наша команда</a>
+          <a href="./sport.html" class="nav-link font-bold text-lg text-blue-400">Спортивные турниры</a>
+        </nav>
+      </div>
+
+      <!-- Мобильное меню -->
+      <div class="md:hidden">
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="focus:outline-none text-white">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-gray-800 shadow-lg md:hidden flex flex-col items-start px-6 py-4">
+      <a href="./index.html" class="font-bold text-lg">Главная</a>
+      <a href="./онас.html" class="font-bold text-lg">О нас</a>
+      <a href="./услуги.html" class="font-bold text-lg">Услуги</a>
+      <a href="./проекты.html" class="font-bold text-lg">Проекты</a>
+      <a href="./kontakt.html" class="font-bold text-lg">Контакты</a>
+      <a href="./team.html" class="font-bold text-lg">Наша команда</a>
+      <a href="./sport.html" class="font-bold text-lg text-blue-400">Спортивные турниры</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="pt-24">
+
+    <!-- HERO SECTION -->
+    <section class="relative w-full h-[70vh] bg-cover bg-center flex items-center justify-center text-white text-center px-6" style="background-image:url('./frames-for-your-heart-zSG-kd-L6vw-unsplash.jpg');">
+      <div class="bg-black/50 absolute inset-0"></div>
+      <div class="relative z-10 max-w-4xl">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Спортивные турниры</h1>
+        <p class="text-xl md:text-2xl font-medium">Проведённые и предстоящие международные соревнования</p>
+        <div class="progress-bar mt-6 mx-auto max-w-md"></div>
+      </div>
+    </section>
+
+    <!-- ПРОВЕДЁННЫЕ ТУРНИРЫ -->
+    <section class="py-16 bg-[#374151]">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-white mb-2">Проведённые турниры</h2>
+        <h2 class="text-4xl font-bold text-center text-white mb-12">__ __</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+            <img src="./ChatGPT Image 2 нояб. 2025 г., 10_40_45.png" alt="MMA 2024" class="w-full h-[300px] object-cover rounded-t-xl">
+            <h3 class="text-2xl font-bold text-blue-400 mt-4 mb-2">Чемпионат мира по MMA 2024</h3>
+            <p class="text-gray-300">Международное соревнование по боевым искусствам. Участвовали сильнейшие бойцы.</p>
+          </div>
+
+          <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+            <img src="./x35907-104_2.jpg" alt="Дзюдо" class="w-full h-[300px] object-cover rounded-t-xl">
+            <h3 class="text-2xl font-bold text-blue-400 mt-4 mb-2">Дзюдо</h3>
+            <p class="text-gray-300">Организуем национальные и международные турниры по дзюдо.</p>
+          </div>
+
+          <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+            <img src="./i.webp" alt="Гранд Слэм 2025" class="w-full h-[300px] object-cover rounded-t-xl">
+            <h3 class="text-2xl font-bold text-blue-400 mt-4 mb-2">Гранд Слэм по дзюдо 2025</h3>
+            <p class="text-gray-300">Крупномасштабное международное соревнование. Спортсмены высшего уровня.</p>
+          </div>
+
+          <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+            <img src="./Photo_1758782800431.png" alt="Муай Тай 2025" class="w-full h-[300px] object-cover rounded-t-xl">
+            <h3 class="text-2xl font-bold text-blue-400 mt-4 mb-2">Чемпионат Азии по Муай Тай WBC 2025</h3>
+            <p class="text-gray-300">Самое престижное соревнование по Муай Тай в Азии.</p>
+          </div>
+
+          <div class="bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+            <img src="./asdfghjkl.png" alt="Тхэквондо 2026" class="w-full h-[300px] object-cover rounded-t-xl">
+            <h3 class="text-2xl font-bold text-blue-400 mt-4 mb-2">Чемпионат мира по тхэквондо WTF 2026</h3>
+            <p class="text-gray-300">Участвуем в организации глобального чемпионата по тхэквондо в будущем.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 text-white p-6 mt-16">
+      <div class="container mx-auto grid grid-cols-3 gap-6 text-start">
+        <div>
+          <h2 class="text-4xl font-bold mb-4">О нас</h2>
+          <p class="text-gray-400">Консультационные услуги HospitalityPro для гостиничного бизнеса</p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold mb-2">Полезные ссылки</h3>
+          <ul class="text-gray-400 space-y-2">
+            <li><a href="./index.html" class="hover:text-white">Главная</a></li>
+            <li><a href="./онас.html" class="hover:text-white">О нас</a></li>
+            <li><a href="./услуги.html" class="hover:text-white">Услуги</a></li>
+            <li><a href="./проекты.html" class="hover:text-white">Проекты</a></li>
+            <li><a href="./kontakt.html" class="hover:text-white">Контакты</a></li>
+            <li><a href="./team.html" class="hover:text-white">Наша команда</a></li>
+            <li><a href="./sport.html" class="hover:text-white">Спортивные турниры</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold mb-2">Пишите нам</h3>
+          <p class="text-gray-400">Следите за нами в соцсетях</p>
+          <div class="flex space-x-4 mt-2">
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-telegram"></i></a>
+          </div>
+          <p class="text-gray-400 mt-4"><i class="fa-solid fa-phone"></i> +998 88 872 80 00</p>
+          <p class="text-gray-400"><i class="fa-solid fa-envelope"></i> info@hospitalitypro.uz</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ✅ Progress bar JS -->
+  <script>
+    window.addEventListener('load', () => {
+      const progress = document.querySelector('.progress-bar');
+      if (progress) {
+        setTimeout(() => {
+          progress.style.width = '100%';
+        }, 300);
+      }
+    });
+  </script>
+
+</body>
+</html>
