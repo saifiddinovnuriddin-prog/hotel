@@ -9,99 +9,132 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            background-color: #1f2937;
-            color: #f9fafb;
+    body { background-color: #374151; }
+    /* Umumiy stillar */
+    .team-card { transition: all .3s ease; position: relative; overflow: hidden; }
+    .team-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(59,130,246,.3); }
+    .team-card:hover .social-links { opacity: 1; transform: translateY(0); }
+    .social-links { opacity: 0; transform: translateY(20px); transition: all .3s ease; }
+
+    .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,.8); }
+    .modal-content { margin: 5% auto; display: block; max-width: 90%; max-height: 90%; border-radius: .5rem; }
+    .close { color:#fff; position:absolute; top:15px; right:35px; font-size:40px; font-weight:bold; cursor:pointer; }
+    .close:hover { color:#1e3a8a; }
+    .next-btn { position:absolute; top:50%; right:10px; transform:translateY(-50%); background:rgba(30,58,138,.7); color:#fff; border:none; padding:10px; cursor:pointer; font-size:20px; border-radius:50%; }
+    .next-btn:hover { background:#1e3a8a; }
+
+    .slide { transition: transform 800ms cubic-bezier(.4,0,.2,1), opacity 400ms ease-in-out; position:relative; width:100vw; flex-shrink:0; }
+    .slide-text { position:absolute; top:50%; left:5%; transform:translateY(-50%); color:white; font-size:1.5rem; font-weight:bold; text-shadow:2px 2px 4px rgba(0,0,0,.7); padding:1.5rem; background:transparent; border-radius:.5rem; max-width:50%; animation:slideIn 1s ease-out forwards; z-index:10; }
+    .slide-button { position:absolute; top:70%; left:5%; padding:12px 24px; font-size:1.2rem; font-weight:bold; background:blue; color:white; border:none; border-radius:5px; cursor:pointer; transition:background .3s,transform .2s; z-index:10; }
+    .slide-button:hover { background:#1b2c8a; transform:scale(1.05); }
+    @keyframes slideIn { from{top:60%;opacity:0} to{top:50%;opacity:1} }
+    #slider { overflow:hidden; width:100vw; height:calc(80vh - 96px); }
+    #slides { width:300vw; display:flex; height:100%; }
+
+    .card-hover { position:relative; overflow:hidden; }
+    .hover-panel { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(37,99,235,.9); color:white; display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(.9); transition:opacity .4s,transform .4s; text-align:center; padding:1rem; }
+    .card-hover:hover .hover-panel { opacity:1; transform:scale(1); }
+
+    .service-card { transition:max-height .5s ease; }
+    .service-card.expanded { max-height:600px; }
+
+    .nav-link { transition:color .3s,transform .3s; }
+    .nav-link:hover { color:#60a5fa; transform:translateY(-4px); }
+
+    /* Mobil optimizatsiya */
+    @media (max-width: 768px) {
+      .container .flex.items-center.gap-4 img { width:40px!important; height:40px!important; }
+      .container h1 { font-size:1.5rem!important; line-height:1.2; }
+      .md\\:hidden button svg { width:32px; height:32px; }
+      #mobile-menu a { font-size:1.1rem; padding:12px 0; display:block; }
+      .slide-text { font-size:1.1rem!important; left:4%!important; max-width:70%!important; padding:1rem!important; }
+      .slide-button { font-size:1rem!important; padding:10px 18px!important; left:4%!important; top:72%!important; }
+      .grid { grid-template-columns:1fr!important; gap:1.5rem; }
+      .card-hover img, .group img { height:220px!important; }
+      .service-card { padding:1.5rem!important; }
+      .service-card h3 { font-size:1.3rem!important; }
+      .more-btn { font-size:1rem; margin-top:.5rem; }
+      .lg\\:grid-cols-4 { grid-template-columns:1fr 1fr!important; }
+      .group { max-width:100%!important; }
+      .lg\\:grid-cols-3 { grid-template-columns:1fr!important; }
+      .cta-button, #toTop { width:56px!important; height:56px!important; }
+      .cta-button svg, #toTop svg { width:28px; height:28px; }
+      .grid-cols-3 { grid-template-columns:1fr!important; gap:2rem; text-align:center; }
+      footer p { font-size:.9rem; }
+      .modal-content { max-width:95%; max-height:80vh; }
+      .mobile-bottom-nav { height:68px; padding-bottom:env(safe-area-inset-bottom); }
+      .mobile-bottom-nav a, .mobile-bottom-nav button { min-width:50px; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:.75rem; color:#e5e7eb; }
+      .mobile-bottom-nav i { font-size:1.25rem; }
+      .mobile-bottom-nav a::after, .mobile-bottom-nav button::after { content:attr(data-label); font-size:.65rem; opacity:.8; }
+    }
+            .header-bg { background-color: #1f2937; }
+        .section-bg { background-color: #374151; color: white; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .card-hover { 
+            position: relative; 
+            overflow: hidden; 
+            transition: transform 0.4s ease, box-shadow 0.4s ease; 
         }
-        .section-bg {
-            background-color: #1f2937;
+        .card-hover:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3); 
         }
-        .card-hover {
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        .hover-panel {
+                .hover-panel {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(37, 99, 235, 0.9);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transform: translateY(100%);
+            transform: scale(0.9);
             transition: opacity 0.4s ease, transform 0.4s ease;
+            text-align: center;
+            padding: 1rem;
         }
-        .card-hover:hover .hover-panel {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .achievement-card:hover .achievement-details {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .achievement-details {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .nav-link {
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #60a5fa;
-            transform: translateY(-2px);
-        }
-        .hero-bg {
-            background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%);
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            animation: pulse 8s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .card-hover:hover .hover-panel { opacity: 1; transform: scale(1); }
+        .service-card { transition: max-height 0.5s ease; }
+        .service-card.expanded { max-height: 600px; }
         .progress-bar {
-            height: 6px;
-            width: 0;
-            border-radius: 9999px;
+            height: 4px;
             background: linear-gradient(to right, #3b82f6, #1e3a8a);
+            width: 0;
             transition: width 1s ease-in-out;
         }
-        .mobile-menu {
+        .nav-link { transition: color 0.3s ease, transform 0.3s ease; }
+        .nav-link:hover { color: #60a5fa; transform: translateY(-2px); }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+        .cta-button { 
+            animation: pulse 2s infinite;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .cta-button:hover { 
+            background-color: #2563eb;
+            transform: scale(1.1);
+        }
+            .hero-bg { 
+      background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 10s infinite;
+    }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+            .mobile-menu {
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
         .mobile-menu.hidden {
@@ -111,293 +144,258 @@
         }
     </style>
 </head>
-<body class="section-bg">
-    <!-- Header -->
-    <header class="bg-gray-800 text-white py-6 px-6 md:px-12 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <img class="w-16 h-16 rounded-full transition-transform duration-300 hover:rotate-12" src="./hospitality pro profil_pixian_ai.png" alt="Логотип" />
-                <div>
-                    <h1 class="text-3xl font-extrabold tracking-tight transition-transform duration-300 hover:scale-105">Hospitality <br><span class="text-blue-400">Pro</span></h1>
-                </div>
-            </div>
-            <div class="flex flex-col items-end gap-2">
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fa-brands fa-telegram"></i></a>
-                </div>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="./index.html" class="nav-link font-bold text-lg">Главная</a>
-                    <a href="./онас.html" class="nav-link font-bold text-lg text-blue-400">О нас</a>
-                    <a href="./услуги.html" class="nav-link font-bold text-lg">Услуги</a>
-                    <a href="./проекты.html" class="nav-link font-bold text-lg">Проекты</a>
-                    <a href="./новости.html" class="nav-link font-bold text-lg">Новости & Статьи</a>
-                    <a href="./kontakt.html" class="nav-link font-bold text-lg">Контакты</a>
-                    <a href="./team.html" class="nav-link font-bold text-lg">Наша команда</a>
-                </nav>
-            </div>
-            <div class="md:hidden">
-                <button id="mobileMenuBtn" class="focus:outline-none text-white">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
+<body class="bg-[#374151]">
+  <!-- HEADER -->
+  <header class="bg-gray-800 text-white py-6 px-6 md:px-12 shadow-lg fixed top-0 left-0 w-full z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-4">
+        <img class="w-16 h-16 rounded-full transition-transform duration-300 hover:rotate-12"
+             src="./hospitality pro profil_pixian_ai.png" alt="Логотип"/>
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight transition-transform duration-300 hover:scale-105">
+            Hospitality <br><span class="text-blue-400">Pro</span>
+          </h1>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu hidden bg-gray-800 text-white px-6 py-4 md:hidden">
-            <nav class="flex flex-col space-y-4">
-                <a href="./index.html" class="nav-link font-bold text-lg">Главная</a>
-                <a href="./онас.html" class="nav-link font-bold text-lg text-blue-400">О нас</a>
-                <a href="./услуги.html" class="nav-link font-bold text-lg">Услуги</a>
-                <a href="./проекты.html" class="nav-link font-bold text-lg">Проекты</a>
-                <a href="./новости.html" class="nav-link font-bold text-lg">Новости & Статьи</a>
-                <a href="./kontakt.html" class="nav-link font-bold text-lg">Контакты</a>
-                    <a href="./team.html" class="nav-link font-bold text-lg">Наша команда</a>
-            </nav>
-        </div>
-    </header>
+      </div>
 
-    <!-- Floating CTA Button -->
-    <a id="phoneBtn" href="tel:+998911638338" class="fixed right-6 top-1/2 z-50 w-14 h-14 mt-[220px] flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg cta-button" aria-label="Телефон" title="Телефон">
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex flex-col items-end gap-2">
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fa-brands fa-telegram"></i></a>
+        </div>
+        <nav class="flex space-x-8">
+          <a href="./index.html" class="nav-link font-bold text-lg">Главная</a>
+          <a href="./онас.html" class="nav-link font-bold text-lg text-blue-400">О нас</a>
+          <a href="./услуги.html" class="nav-link font-bold text-lg">Услуги</a>
+          <a href="./проекты.html" class="nav-link font-bold text-lg">Проекты</a>
+          <a href="./kontakt.html" class="nav-link font-bold text-lg">Контакты</a>
+          <a href="./team.html" class="nav-link font-bold text-lg">Наша команда</a>
+          <a href="./sport.html" class="nav-link font-bold text-lg">Спортивный турнир</a>
+        </nav>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="focus:outline-none text-white">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-gray-800 shadow-lg md:hidden flex flex-col items-start px-6 py-4">
+      <a href="./index.html" class="nav-link font-bold text-lg">Главная</a>
+      <a href="./онас.html" class="nav-link font-bold text-lg text-blue-400">О нас</a>
+      <a href="./услуги.html" class="nav-link font-bold text-lg">Услуги</a>
+      <a href="./проекты.html" class="nav-link font-bold text-lg">Проекты</a>
+      <a href="./kontakt.html" class="nav-link font-bold text-lg">Контакты</a>
+      <a href="./team.html" class="nav-link font-bold text-lg">Наша команда</a>
+      <a href="./sport.html" class="nav-link font-bold text-lg">Спортивный турнир</a>
+      <div class="flex space-x-4">
+        <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="text-gray-400 hover:text-blue-400 nav-link"><i class="fa-brands fa-telegram"></i></a>
+      </div>
+    </div>
+  </header>
+
+    <!-- CTA Button (desktop) -->
+    <a href="tel:+998888728000" id="phoneBtn"
+       class="hidden md:flex fixed right-6 top-1/2 z-50 w-14 h-14 mt-[200px] items-center justify-center rounded-full bg-blue-600 text-white shadow-lg"
+       aria-label="Позвонить">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h1.5a1 1 0 011 .75l.6 2.4a1 1 0 01-.25 .95L6.1 8.9a12.04 12.04 0 005 5l1.8-1.25a1 1 0 01.95-.25l2.4.6A1 1 0 0119 15.5V17a2 2 0 01-2 2A16 16 0 013 5z"/>
         </svg>
     </a>
 
-    <!-- Scroll to Top Button -->
-    <button id="toTop" class="fixed right-6 bottom-6 z-50 w-14 h-14 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg opacity-0 pointer-events-none transform translate-y-6 transition-all duration-300 hover:scale-110 focus:outline-none" aria-label="Наверх" title="Наверх">
+    <!-- To Top (desktop) -->
+    <button id="toTop"
+            class="hidden md:flex fixed right-6 bottom-6 z-50 w-14 h-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg opacity-0 pointer-events-none transition-all duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
         </svg>
     </button>
 
+    <!-- MOBILE BOTTOM NAV -->
+    <div class="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 z-50 md:hidden mobile-bottom-nav shadow-lg">
+        <div class="flex justify-around items-center py-3">
+            <a href="tel:+998888728000" class="p-3 text-white hover:text-blue-400 transition" data-label="Позвонить">
+                <i class="fas fa-phone text-xl"></i>
+            </a>
+            <a href="mailto:info@hospitalitypro.uz" class="p-3 text-white hover:text-blue-400 transition" data-label="Написать">
+                <i class="fas fa-envelope text-xl"></i>
+            </a>
+            <button onclick="sharePage()" class="p-3 text-white hover:text-blue-400 transition" data-label="Поделиться">
+                <i class="fas fa-share-alt text-xl"></i>
+            </button>
+            <button onclick="scrollToTop()" class="p-3 text-white hover:text-blue-400 transition" data-label="Наверх">
+                <i class="fas fa-arrow-up text-xl"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- Main Content -->
-    <main class="py-16 px-6 md:px-12 section-bg">
-        <!-- Hero Section -->
-        <section class="hero-bg text-white py-24 rounded-xl relative overflow-hidden mb-16 bg-cover bg-center h-[390px]" style="background-image: url('./frames-for-your-heart-zSG-kd-L6vw-unsplash.jpg');">
-            <div class="max-w-5xl mx-auto text-center fade-in">
-                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6">О нас</h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">HospitalityPro — ваш надежный партнер в гостиничном бизнесе, предоставляющий профессиональные консультационные услуги для управления, запуска и развития отелей.</p>
-                <div class="progress-bar mt-6 mx-auto max-w-md"></div>
-            </div>
-        </section>
+    <main class="pt-24">
+    <section class="relative w-full h-[70vh] bg-cover bg-center flex items-center justify-center text-white text-center px-6" style="background-image:url('./frames-for-your-heart-zSG-kd-L6vw-unsplash.jpg');">
+      <div class="bg-black/50 absolute inset-0"></div>
+      <div class="relative z-10 max-w-4xl">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Наши достижения</h1>
+        <p class="text-xl md:text-3xl font-extrabold mb-6">и Наши ценности</p>
+        <div class="progress-bar mt-6 mx-auto max-w-md"></div>
+      </div>
+    </section>
 
         <!-- Achievements Section -->
-        <section class="max-w-7xl mx-auto mb-16">
+        <section class="max-w-7xl mx-auto mb-16 py-16">
             <h2 class="text-4xl font-bold text-center text-white mb-10">Наши достижения</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
                 <!-- Achievement 1 -->
-                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center">
-                    <i class="fas fa-trophy text-4xl text-blue-400 mb-4"></i>
+                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+                    <i class="fas fa-trophy text-5xl text-blue-400 mb-4"></i>
                     <h3 class="text-2xl text-white font-semibold mb-2">20+ проектов</h3>
                     <p class="text-gray-300 mb-4">Мы успешно завершили более 20 проектов для отелей и курортов.</p>
-                    <div class="achievement-details text-gray-300">
-                        <p>Наши проекты охватывают запуск новых отелей, оптимизацию управления и ребрендинг.</p>
-                    </div>
+                    <div class="hover-panel"><p class="text-sm">Запуск, управление, ребрендинг.</p></div>
                 </div>
                 <!-- Achievement 2 -->
-                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center">
-                    <i class="fas fa-clock text-4xl text-blue-400 mb-4"></i>
+                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+                    <i class="fas fa-clock text-5xl text-blue-400 mb-4"></i>
                     <h3 class="text-2xl text-white font-semibold mb-2">20+ лет опыта</h3>
-                    <p class="text-gray-300 mb-4">Более двух десятилетий работы в гостиничной индустрии.</p>
-                    <div class="achievement-details text-gray-300">
-                        <p>Наш опыт позволяет нам предлагать проверенные и эффективные решения для вашего бизнеса.</p>
-                    </div>
+                    <p class="text-gray-300 mb-4">Более двух десятилетий работы в индустрии.</p>
+                    <div class="hover-panel"><p class="text-sm">Проверенные решения.</p></div>
                 </div>
                 <!-- Achievement 3 -->
-                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center">
-                    <i class="fas fa-users text-4xl text-blue-400 mb-4"></i>
-                    <h3 class="text-2xl text-white font-semibold mb-2">20+ клиентов</h3>
-                    <p class="text-gray-300 mb-4">Мы помогли более 22 клиентам достичь их бизнес-целей.</p>
-                    <div class="achievement-details text-gray-300">
-                        <p>Наши клиенты — отели, курорты и рестораны по всему миру, доверяющие нашему профессионализму.</p>
-                    </div>
+                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+                    <i class="fas fa-users text-5xl text-blue-400 mb-4"></i>
+                    <h3 class="text-2xl text-white font-semibold mb-2">22+ клиента</h3>
+                    <p class="text-gray-300 mb-4">Помогли достичь целей.</p>
+                    <div class="hover-panel"><p class="text-sm">Отели, курорты, рестораны.</p></div>
                 </div>
             </div>
         </section>
 
         <!-- Values Section -->
-        <section class="max-w-7xl mx-auto mb-16">
+        <section class="max-w-6xl mx-auto mb-16">
             <h2 class="text-4xl font-bold text-center text-white mb-10">Наши ценности</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
                 <!-- Value 1 -->
-                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center">
-                    <i class="fas fa-star text-4xl text-blue-400 mb-4"></i>
-                    <h3 class="text-xl text-white font-semibold mb-2">Профессионализм</h3>
-                    <p class="text-gray-300 mb-4">Мы обеспечиваем высокий уровень экспертизы и качества в каждом проекте.</p>
-                    <div class="achievement-details text-gray-300">
-                        <p>Наши специалисты обладают глубокими знаниями в гостиничном бизнесе и стремятся к совершенству.</p>
-                    </div>
+                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+                    <i class="fas fa-star text-5xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Профессионализм</h3>
+                    <p class="text-gray-300 text-sm">Мы обеспечиваем высокий уровень экспертизы и качества в каждом проекте.</p>
+                    <div class="hover-panel p-4"><p class="text-sm">Глубокие знания в гостиничном бизнесе.</p></div>
                 </div>
                 <!-- Value 2 -->
-                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center">
-                    <i class="fas fa-users text-4xl text-blue-400 mb-4"></i>
-                    <h3 class="text-xl text-white font-semibold mb-2">Клиентоориентированность</h3>
-                    <p class="text-gray-300 mb-4">Ваши цели — наш приоритет. Мы создаем решения, ориентированные на ваш успех.</p>
-                    <div class="achievement-details text-gray-300">
-                        <p>Мы тесно сотрудничаем с клиентами, чтобы понять их потребности и предложить лучшие решения.</p>
-                    </div>
+                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+                    <i class="fas fa-users text-5xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Клиентоориентированность</h3>
+                    <p class="text-gray-300 text-sm">Ваши цели — наш приоритет. Мы создаем решения, ориентированные на ваш успех.</p>
+                    <div class="hover-panel p-4"><p class="text-sm">Тесное сотрудничество с клиентами.</p></div>
                 </div>
                 <!-- Value 3 -->
-                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center">
-                    <i class="fas fa-lightbulb text-4xl text-blue-400 mb-4"></i>
-                    <h3 class="text-xl text-white font-semibold mb-2">Инновации</h3>
-                    <p class="text-gray-300 mb-4">Мы внедряем передовые технологии и подходы для развития вашего бизнеса.</p>
-                    <div class="achievement-details text-gray-300">
-                        <p>Наши инновационные решения помогают отелям выделяться на конкурентном рынке.</p>
-                    </div>
+                <div class="achievement-card bg-gray-800 p-6 rounded-xl shadow-lg border-4 border-white text-center card-hover">
+                    <i class="fas fa-lightbulb text-5xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Инновации</h3>
+                    <p class="text-gray-300 text-sm">Внедряем передовые технологии и подходы.</p>
+                    <div class="hover-panel p-4"><p class="text-sm">Помогаем выделяться на рынке.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- Mission Section -->
-        <section class="hero-bg w-full rounded-xl shadow-lg relative overflow-hidden bg-cover bg-center min-h-[400px]" style="background-image: url('./sadsfbg.jpg')">
-            <div class="max-w-5xl mx-auto text-center fade-in relative z-10 py-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">Наша миссия</h2>
-                <p class="text-lg text-white mb-4 leading-relaxed">HospitalityPro стремится помочь гостиницам достигать успеха через эффективное управление, развитие команд и внедрение международных стандартов.</p>
-                <p class="text-lg text-white leading-relaxed">Мы предлагаем комплексные решения: от анализа рынка и стратегического планирования до дизайна и открытия новых объектов размещения.</p>
-                <div class="progress-bar mt-6 mx-auto max-w-md"></div>
-            </div>
-        </section>
+    <section class="relative w-full h-[70vh] bg-cover bg-center flex items-center justify-center text-white text-center px-6" style="background-image:url('./frames-for-your-heart-zSG-kd-L6vw-unsplash.jpg');">
+      <div class="bg-black/50 absolute inset-0"></div>
+      <div class="relative z-10 max-w-4xl">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Наша миссия</h1>
+        <p class="text-xl md:text-2xl font-extrabold mb-4">HospitalityPro стремится помочь гостиницам достигать успеха через эффективное управление, развитие команд и внедрение международных стандартов.</p>
+        <h1 class="text-5xl md:text-2xl font-extrabold mb-4">Мы предлагаем комплексные решения: от анализа рынка до открытия новых объектов.</h1>
+      </div>
+    </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 px-6 md:px-12">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-                <h2 class="text-2xl font-bold mb-4">О нас</h2>
-                <p class="text-gray-400">Консультационные услуги HospitalityPro для гостиничного бизнеса. Мы помогаем вашему бизнесу процветать.</p>
-            </div>
-            <div>
-                <h3 class="text-xl font-semibold mb-2">Полезные ссылки</h3>
-                <ul class="text-gray-400 space-y-2">
-                    <li><a href="./index.html" class="hover:text-blue-400">Главная</a></li>
-                    <li><a href="./онас.html" class="hover:text-blue-400">О нас</a></li>
-                    <li><a href="./услуги.html" class="hover:text-blue-400">Услуги</a></li>
-                    <li><a href="./проекты.html" class="hover:text-blue-400">Проекты</a></li>
-                    <li><a href="./новости.html" class="hover:text-blue-400">Новости & Статьи</a></li>
-                    <li><a href="./kontakt.html" class="hover:text-blue-400">Контакты</a></li>
-                    <li><a href="./reviews.html" class="hover:text-blue-400">Отзывы клиентов</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-xl font-semibold mb-2">Свяжитесь с нами</h3>
-                <p class="text-gray-400">Следите за нами в социальных сетях</p>
-                <div class="flex space-x-4 mt-2">
-                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/hospitality__pro/#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fa-brands fa-telegram"></i></a>
-                </div>
-                <p class="text-gray-400 mt-4"><i class="fa-solid fa-phone"></i> +998 91 163 83 38</p>
-                <p class="text-gray-400"><i class="fa-solid fa-envelope"></i> info@hospitalitypro.uz</p>
-            </div>
+  <div class="bg-gray-800 text-white p-6">
+    <div class="container mx-auto grid grid-cols-3 gap-6 text-start">
+      <div>
+        <h2 class="text-4xl font-bold mb-4">О нас</h2>
+        <p class="text-gray-400">Консультационные услуги HospitalityPro для гостиничного бизнеса</p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-semibold mb-2">Полезные ссылки</h3>
+        <ul class="text-gray-400 space-y-2">
+          <li><a href="./index.html" class="hover:text-white">Главная</a></li>
+          <li><a href="./онас.html" class="hover:text-white">О нас</a></li>
+          <li><a href="./услуги.html" class="hover:text-white">Услуги</a></li>
+          <li><a href="./проекты.html" class="hover:text-white">Проекты</a></li>
+          <li><a href="./kontakt.html" class="hover:text-white">Контакты</a></li>
+          <li><a href="./team.html" class="hover:text-white">Наша команда</a></li>
+          <li><a href="./sport.html" class="hover:text-white">Спортивный турнир</a></li>
+        </ul>
+      </div>
+      <div id="aloqa">
+        <h3 class="text-2xl font-semibold mb-2">Пишите нам</h3>
+        <p class="text-gray-400">Следите за нами в социальных сетях</p>
+        <div class="flex space-x-4 mt-2">
+          <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/hospitality__pro" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-telegram"></i></a>
         </div>
-        <div class="container mx-auto text-center mt-8">
-            <p>&copy; 2025 HospitalityPro. Все права защищены. <a href="tel:+998911638338" class="hover:text-blue-300">+998 91 163 83 38</a> | <span id="current-time"></span></p>
-        </div>
-    </footer>
+        <p class="text-gray-400 mt-4"><i class="fa-solid fa-phone"></i> +998 88 872 80 00</p>
+        <p class="text-gray-400"><i class="fa-solid fa-envelope"></i> info@hospitalitypro.uz</p>
+      </div>
+    </div>
+  </div>
 
+    <!-- SCRIPTS -->
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+            // Fade-in animation
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.1 });
+            fadeElements.forEach(el => observer.observe(el));
 
-        // Fade-in animation
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
-        fadeElements.forEach(el => observer.observe(el));
+            // Progress bar animation
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => setTimeout(() => { bar.style.width = '100%'; }, 500));
 
-        // Progress bar animation
-        const progressBars = document.querySelectorAll('.progress-bar');
-        progressBars.forEach(bar => setTimeout(() => { bar.style.width = '100%'; }, 500));
+            // Scroll to Top
+            const toTopBtn = document.getElementById('toTop');
+            const showAfter = 200;
 
-        // Scroll to Top
-        const toTopBtn = document.getElementById('toTop');
-        const phoneBtn = document.getElementById('phoneBtn');
-        const showAfter = 200;
-
-        function updateToTopVisibility() {
-            if (window.scrollY > showAfter) {
-                toTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
-                toTopBtn.classList.add('opacity-100', 'translate-y-0');
-            } else {
-                toTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-6');
-                toTopBtn.classList.remove('opacity-100', 'translate-y-0');
-            }
-        }
-
-        window.addEventListener('scroll', updateToTopVisibility, { passive: true });
-        window.addEventListener('load', updateToTopVisibility);
-
-        toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-        if (toTopBtn) {
-            toTopBtn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toTopBtn.click();
+            function updateToTopVisibility() {
+                if (window.scrollY > showAfter) {
+                    toTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                } else {
+                    toTopBtn.classList.add('opacity-0', 'pointer-events-none');
                 }
-            });
-        }
+            }
 
-        if (phoneBtn) {
-            phoneBtn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    phoneBtn.click();
+            window.addEventListener('scroll', updateToTopVisibility, { passive: true });
+            window.addEventListener('load', updateToTopVisibility);
+
+            toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // Share Page
+            window.sharePage = function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'HospitalityPro - О нас',
+                        text: 'Профессиональные консультации для гостиничного бизнеса',
+                        url: window.location.href
+                    }).catch(() => {});
+                } else {
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        alert('Ссылка скопирована: ' + window.location.href);
+                    }).catch(() => {
+                        prompt('Скопируйте ссылку:', window.location.href);
+                    });
                 }
-            });
-        }
-
-        let pulseInterval = setInterval(() => {
-            if (!phoneBtn) return;
-            phoneBtn.classList.add('scale-[1.10]');
-            setTimeout(() => phoneBtn.classList.remove('scale-[1.10]'), 600);
-        }, 3000);
-
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                clearInterval(pulseInterval);
-            } else {
-                pulseInterval = setInterval(() => {
-                    if (!phoneBtn) return;
-                    phoneBtn.classList.add('scale-[1.06]');
-                    setTimeout(() => phoneBtn.classList.remove('scale-[1.06]'), 300);
-                }, 4000);
-            }
-        });
-
-        [toTopBtn, phoneBtn].forEach(el => {
-            if (el) {
-                el.addEventListener('focus', () => el.classList.add('focus-ring'));
-                el.addEventListener('blur', () => el.classList.remove('focus-ring'));
-            }
-        });
-
-        // Current Time
-        function updateTime() {
-            const now = new Date();
-            const options = {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true,
-                timeZone: 'Asia/Tashkent',
-                timeZoneName: 'short'
             };
-            const timeString = now.toLocaleTimeString('en-US', options).replace('AM', 'AM +05').replace('PM', 'PM +05');
-            const day = now.toLocaleDateString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
-            document.getElementById('current-time').textContent = `${timeString} в ${day}`;
-        }
-        setInterval(updateTime, 1000);
-        updateTime();
-    });
+
+            // Scroll to Top (mobil uchun)
+            window.scrollToTop = function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
     </script>
 </body>
 </html>
